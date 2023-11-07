@@ -1,24 +1,31 @@
 #ifndef FRAME_H
 #define FRAME_H
-
+#include <QList>
+#include <QPixMap>
 class Frame : public QObject {
     Q_OBJECT
 public:
     /**
-     * @brief Tool constructor
+     * @brief Frame constructor
      * @param parent a QObject
      */
     explicit Frame(QObject *parent = nullptr);
 
 
 public slots:
-    // TODO
+    /**
+     * @brief nextVersion moves pointer backward if possible.
+     */
+    nextVersion();
 
-signals:
-    // TODO
+    /**
+     * @brief previousVersion moves pointer forward if possible.
+     */
+    previousVersion();
 
-private:
-    //TODO
+protected:
+    QList<QPixmap> versions;
+    QPixmap* currentVersion;
 };
 
 #endif // FRAME_H

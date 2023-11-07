@@ -43,12 +43,12 @@ public slots:
     useTool(Tool currentTool);
 
     /**
-     * @brief undo reverts to the previous frame version
+     * @brief undo reverts to the previous frame version.
      */
     undo();
 
     /**
-     * @brief redo goes forward to a newer frame version
+     * @brief redo goes forward to a newer frame version.
      */
     redo();
 
