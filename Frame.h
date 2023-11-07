@@ -2,6 +2,15 @@
 #define FRAME_H
 #include <QList>
 #include <QPixMap>
+
+/**
+ * @authors Names:
+ * @authors GitHubs:
+ *
+ * @title Assignment 8: Sprite Editor Implementation
+ *
+ * @brief The Frame class ...
+ */
 class Frame : public QObject {
     Q_OBJECT
 public:
