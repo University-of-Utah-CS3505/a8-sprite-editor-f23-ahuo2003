@@ -13,7 +13,9 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Frame.h \
     Model.h \
+    Tool.h \
     mainwindow.h
 
 FORMS += \
