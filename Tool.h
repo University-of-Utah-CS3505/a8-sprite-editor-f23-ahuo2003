@@ -1,6 +1,7 @@
 #ifndef TOOL_H
 #define TOOL_H
 #include <QString>
+#include <QObject>
 
 /**
  * @authors Names:
@@ -18,35 +19,35 @@ public:
      * @brief Tool constructor
      * @param parent a QObject
      */
-    explicit Tool(QObject *parent = nullptr, QString name);
+    explicit Tool(QObject *parent = nullptr, QString name = NULL);
 
 public slots:
     /**
      * @brief onMousePress does an action when the mouse is pressed.
      */
-    virtual onMousePress();
+    void virtual onMousePress();
 
     /**
      * @brief onMouseRelease does an action when the mouse is released.
      */
-    virtual onMouseRelease();
+    void virtual onMouseRelease();
 
     /**
      * @brief onMouseMove does an action when the mouse moves.
      */
-    virtual onMouseMove();
+    void virtual onMouseMove();
 
 signals:
     /**
      * @brief unselectTools tells the view to unselect all tools selected.
      */
-    unselectTools();
+    void unselectTools();
 
     /**
      * @brief selectTool tells the view to select a tool and show the user which tool is selected.
      * @param toolName name of the tool selected.
      */
-    selectTool(string toolName);
+    void selectTool(std::string toolName);
 
 protected:
     QString name;
