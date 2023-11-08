@@ -3,8 +3,10 @@
 #include <QColor>
 #include <QList>
 #include <QMap>
+#include <QObject>
 #include "Tool.h"
 #include "Frame.h"
+
 
 /**
  * @authors Names:
@@ -28,44 +30,44 @@ public slots:
     /**
      * @brief start sets all the private values to its default state
      */
-    start();
+    void start();
 
     /**
      * @brief changeTool changes the currentTool for the tool desired
      * @param tool
      */
-    changeTool(Tool tool);
+    void changeTool(Tool tool);
 
     /**
      * @brief useTool uses the mousePressed method of the tool selected.
      * @param currentTool
      */
-    useTool(Tool currentTool);
+    void useTool(Tool currentTool);
 
     /**
      * @brief undo reverts to the previous frame version.
      */
-    undo();
+    void undo();
 
     /**
      * @brief redo goes forward to a newer frame version.
      */
-    redo();
+    void redo();
 
     /**
      * @brief previousFrame shows to the previous frame.
      */
-    previousFrame();
+    void previousFrame();
 
     /**
      * @brief nextFrame shows the next frame.
      */
-    nextFrame();
+    void nextFrame();
 
     /**
      * @brief changeColor changes the currentColor based on the RGB sliders in the view.
      */
-    changeColor();
+    void changeColor();
 
 signals:
     /**
@@ -87,7 +89,7 @@ signals:
     void chooseColor(QColor currentColor);
 
 private:
-    QMap<string, tool> tools;
+    QMap<std::string, Tool> tools;
     Tool currTool;
     QList<Frame> Frames;
     QColor backgroundColor;

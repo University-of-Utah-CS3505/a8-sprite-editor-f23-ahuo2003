@@ -2,6 +2,7 @@
 #define FRAME_H
 #include <QList>
 #include <QPixMap>
+#include <QObject>
 
 /**
  * @authors Names:
@@ -25,12 +26,12 @@ public slots:
     /**
      * @brief nextVersion moves pointer backward if possible.
      */
-    nextVersion();
+    void nextVersion();
 
     /**
      * @brief previousVersion moves pointer forward if possible.
      */
-    previousVersion();
+    void previousVersion();
 
 protected:
     QList<QPixmap> versions;
