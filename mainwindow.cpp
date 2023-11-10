@@ -17,9 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     QPixmap whiteCanvas(ui->drawingCanvas->size());
     QPixmap whiteColorPreview(ui->colorPreview->size());
+    QPixmap animationPrev(ui->animationPreview->size());
+    animationPrev.fill(Qt::white);
     whiteColorPreview.fill(Qt::white);
     whiteCanvas.fill(Qt::white);
 
+    ui->animationPreview->setPixmap(animationPrev);
     ui->drawingCanvas->setPixmap(whiteCanvas);
     ui->colorPreview->setPixmap(whiteColorPreview);
 

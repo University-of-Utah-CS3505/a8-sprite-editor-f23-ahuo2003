@@ -6,7 +6,7 @@
 }
 
 QMainWindow {
-    background-color: #656565;
+    background-color: #111111;
 }
 
 QToolBar, QDockWidget {
