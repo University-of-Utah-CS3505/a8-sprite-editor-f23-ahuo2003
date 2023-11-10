@@ -1,0 +1,84 @@
+* {
+    font-family: 'Segoe UI';
+    font-size: 10pt;
+    color: #dcdcdc;
+	background-color: #535353
+}
+
+QMainWindow {
+    background-color: #656565;
+}
+
+QToolBar, QDockWidget {
+    border: 2px solid #a2a2a2;
+    background: #535353;
+    spacing: 10px;
+}
+
+QDockWidget::title {
+	background: #424242
+    text-align: center;
+    background: #d0d0d0;
+    padding: 3px;
+}
+
+QToolButton {
+    border: 1px solid #535353;
+    background-color: #424242;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    margin: 2px;
+    icon-size: 24px;
+}
+
+QToolButton:hover {
+    background-color: #656565;
+}
+
+QToolButton:pressed, QToolButton:checked {
+    background-color: #787878;
+	padding-top: 2px;
+	padding-left: 2px;
+}
+
+QToolButton:disabled {
+    border-color: #f0f0f0;
+    background-color: #f0f0f0;
+}
+
+QSlider::groove:horizontal {
+    border: 1px solid #999999;
+    height: 10px;
+    background: #424242;
+    margin: 2px 0;
+}
+
+QSlider::handle:horizontal {
+    background: #787878;
+    border: 1px solid #5c5c5c;
+    width: 18px;
+    margin: -2px 0;
+    border-radius: 10px;
+}
+
+QPushButton {
+    border: 1px solid #535353;
+    background-color: #424242;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 2px;
+}
+
+QPushButton:hover {
+    background-color: #656565;
+}
+
+QPushButton:pressed {
+    background-color: #787878;
+}
+
+QLabel {
+    border: 1px solid #424242;
+    background-color: #535353;
+}
