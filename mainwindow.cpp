@@ -6,21 +6,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap drawOn(400, 400);
-    QPixmap colorPreview(40,40);
-    QPixmap spritePreview(40,40);
+    // Default window size of 1280x720 (non-resizable)
+    this->setFixedSize(1280,720);
 
-    spritePreview.fill(Qt::black);
-    drawOn.fill(Qt::red);
-    colorPreview.fill(Qt::black);
+    // Setup global stylesheet using qss file
+    QFile stylesheetFile(":/stylesheet/res/stylesheet/stylesheet.qss");
+    stylesheetFile.open(QFile::ReadOnly);
+    QString style(stylesheetFile.readAll());
+    this->setStyleSheet(style);
 
-    ui->Canvas->setPixmap(drawOn);
-    ui->ColorPreview->setPixmap(colorPreview);
-    ui->SpritePreview->setPixmap(spritePreview);
+    QPixmap whiteCanvas(ui->drawingCanvas->size());
+    QPixmap whiteColorPreview(ui->colorPreview->size());
+    whiteColorPreview.fill(Qt::white);
+    whiteCanvas.fill(Qt::white);
 
-    // Default window size of 1280x720 and a minimum size of 800x600
-    setMinimumSize(800,600);
-    resize(1280,720);
+    ui->drawingCanvas->setPixmap(whiteCanvas);
+    ui->colorPreview->setPixmap(whiteColorPreview);
+
+
 }
 
 MainWindow::~MainWindow()
