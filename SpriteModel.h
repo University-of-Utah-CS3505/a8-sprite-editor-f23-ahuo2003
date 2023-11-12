@@ -51,7 +51,7 @@ public slots:
     /**
      * @brief changeColor changes the currentColor based on the RGB sliders in the view.
      */
-    void changeColor();
+    void changeColor(int red, int green, int blue);
 signals:
     /**
      * @brief updateFrame tells the view to update the drawing in the current Frame.

@@ -36,7 +36,8 @@ void SpriteModel::nextFrame()
     //Do something
 }
 
-void SpriteModel::changeColor()
+void SpriteModel::changeColor(int red, int green, int blue)
 {
-    //Do something
+    QColor newColor = QColor(red, green, blue);
+    emit chooseColor(newColor);
 }
