@@ -9,6 +9,11 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Bucket.cpp \
+    Eraser.cpp \
+    Eyedropper.cpp \
+    Filter.cpp \
+    Pencil.cpp \
     SpriteModel.cpp \
     SpriteTool.cpp \
     doublelinkedlist.cpp \
@@ -16,6 +21,11 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Bucket.h \
+    Eraser.h \
+    Eyedropper.h \
+    Filter.h \
+    Pencil.h \
     SpriteModel.h \
     SpriteTool.h \
     doublelinkedlist.h \

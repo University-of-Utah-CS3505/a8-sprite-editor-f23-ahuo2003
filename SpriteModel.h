@@ -1,11 +1,9 @@
 #ifndef SPRITEMODEL_H
 #define SPRITEMODEL_H
 #include "SpriteTool.h"
-#include "doublelinkedlist.h"
 #include <QMap>
 #include <QColor>
 #include <QObject>
-
 class SpriteModel : public QObject{
     Q_OBJECT
 public:
@@ -26,7 +24,7 @@ public slots:
      * @brief useTool uses the mousePressed method of the tool selected.
      * @param currentTool
      */
-    void useTool(SpriteTool currentTool);
+    void useTool(QMouseEvent *event);
 
     /**
      * @brief undo reverts to the previous frame version.
@@ -72,11 +70,11 @@ signals:
     void chooseColor(QColor currentColor);
 
 private:
-    QMap<std::string, SpriteTool> tools;
-    SpriteTool currTool;
+    QMap<QString, SpriteTool*> tools;
+    SpriteTool* currTool;
     QColor backgroundColor;
     QColor currColor;
-    DoubleLinkedList<int> frames; // This int will be replace with Frames
+    QList<int> frames; // This int will be replace with Frames
 
 };
 #endif // SPRITEMODEL_H
