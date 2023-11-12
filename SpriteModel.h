@@ -1,6 +1,7 @@
 #ifndef SPRITEMODEL_H
 #define SPRITEMODEL_H
 #include "SpriteTool.h"
+#include "doublelinkedlist.h"
 #include <QMap>
 #include <QColor>
 #include <QObject>
@@ -74,5 +75,8 @@ private:
     QMap<std::string, SpriteTool> tools;
     SpriteTool currTool;
     QColor backgroundColor;
+    QColor currColor;
+    DoubleLinkedList<int> frames; // This int will be replace with Frames
+
 };
 #endif // SPRITEMODEL_H

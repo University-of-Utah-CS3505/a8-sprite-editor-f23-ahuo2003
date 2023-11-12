@@ -11,12 +11,14 @@ CONFIG += c++17
 SOURCES += \
     SpriteModel.cpp \
     SpriteTool.cpp \
+    doublelinkedlist.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     SpriteModel.h \
     SpriteTool.h \
+    doublelinkedlist.h \
     mainwindow.h
 
 FORMS += \
