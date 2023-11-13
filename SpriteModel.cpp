@@ -8,16 +8,8 @@
 #include <QMouseEvent>
 #include <QDebug>
 
-SpriteModel::SpriteModel(QObject *parent) : QObject(parent){
+SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(frames){
     //Empty Map and QList
-    currFrame = QImage(512, 512, QImage::Format_ARGB32);
-
-    //REMOVE TEST
-    //int width = 32;
-    //int height = 32;
-    //currFrame = currFrame.scaled(width, height);
-    //END OF REMOVE TEST
-
     tools.clear();
     frames.clear();
 
@@ -28,10 +20,14 @@ SpriteModel::SpriteModel(QObject *parent) : QObject(parent){
     tools["Eyedropper"] = new Eyedropper();
     tools["Filter"]     = new Filter();
 
-    //White Background, Black Cursor
+    //Set the rest of the variables to default values
     backgroundColor = Qt::white;
     currColor = Qt::black;
     currTool = tools["Pencil"];
+    currFrame = QImage(512, 512, QImage::Format_ARGB32);
+    frames.append(currFrame);
+    framesIterator.toFront();
+    //emit signal to disable previous frame button, or have it default to disabled in view.
 }
 
 void SpriteModel::changeTool(SpriteTool tool)
@@ -65,12 +61,28 @@ void SpriteModel::redo()
 
 void SpriteModel::previousFrame()
 {
-    //TODO
+    if (framesIterator.hasPrevious()){
+        //TODO: Emit signal to enable PREVIOUS frame button
+        currFrame = framesIterator.previous();
+        emit updateFrame(currFrame);
+    }
+
+    else {
+       //TODO: Emit signal to disable the PREVIOUS frame button
+    }
 }
 
 void SpriteModel::nextFrame()
 {
-    //TODO
+    if (framesIterator.hasNext()){
+        //TODO: Emit signal to enable NEXT frame button
+        currFrame = framesIterator.next();
+        emit updateFrame(currFrame);
+    }
+
+    else {
+        //TODO: Emit signal to disable the NEXT button
+    }
 }
 
 void SpriteModel::changeColor(int red, int green, int blue)

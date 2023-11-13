@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QObject>
 #include <QImage>
+#include <QListIterator>
 
 class SpriteModel : public QObject {
   Q_OBJECT
@@ -76,6 +77,7 @@ private:
   QImage currFrame;
   QColor backgroundColor;
   QColor currColor;
-  QList<QImage> frames; // This int will be replace with Frames
+  QList<QImage> frames;
+  QListIterator<QImage> framesIterator;
 };
 #endif // SPRITEMODEL_H
