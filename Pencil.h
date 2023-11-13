@@ -13,7 +13,7 @@ public:
 protected:
   virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event);
   virtual void mouseReleased();
-  virtual void mouseMoved();
+  virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event);
 };
 
 #endif // PENCIL_H

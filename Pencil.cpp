@@ -17,7 +17,8 @@ void Pencil::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event) 
 void Pencil::mouseReleased(){
 
 }
-void Pencil::mouseMoved(){
+void Pencil::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event){
+    drawPixel(image, currColor, event);
 //    //Draw based on current cord and previous
 //    //x1 and y1
 //    startX = event->pos().x();
