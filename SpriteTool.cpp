@@ -3,7 +3,7 @@
 // General Tool Declaration
 SpriteTool::SpriteTool(){}
 
-void SpriteTool::mousePressed(){
+void SpriteTool::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event){
 
 }
 void SpriteTool::mouseReleased(){
