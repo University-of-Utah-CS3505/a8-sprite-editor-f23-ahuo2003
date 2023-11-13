@@ -1,11 +1,13 @@
 #include "Pencil.h"
 #include <QMouseEvent>
-
+#include <QDebug>
 
 Pencil::Pencil() : SpriteTool(){}
 
 void Pencil::drawPixel(QImage& image, QColor& currColor, QMouseEvent *event){
-    image.setPixelColor(event->pos(), currColor);
+    QPoint scaledPoint(event->pos());
+    scaledPoint.setX(scaledPoint.x() - 1);
+    image.setPixelColor(scaledPoint, currColor);
 }
 
 void Pencil::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event) {
