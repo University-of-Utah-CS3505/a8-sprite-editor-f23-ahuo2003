@@ -17,7 +17,7 @@
    <string>Sprite Editor - Immigrants, The</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="drawingCanvas">
+   <widget class="Canvas" name="drawingCanvas">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -357,6 +357,13 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Canvas</class>
+   <extends>QLabel</extends>
+   <header>Canvas.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
