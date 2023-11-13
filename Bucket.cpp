@@ -16,16 +16,15 @@ void Bucket::onMousePress(QMouseEvent *event)
 //            floodFill(pixmap, pressPos, startColor, newColor);
 //        }
 //    }
-
 }
 
-void Bucket::onMouseRelease(QMouseEvent *event)
-{
+void Bucket::mousePressed(){
 
 }
+void Bucket::mouseReleased(){
 
-void Bucket::onMouseMove(QMouseEvent *event)
-{
+}
+void Bucket::mouseMoved(){
 
 }
 

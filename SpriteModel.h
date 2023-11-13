@@ -4,6 +4,9 @@
 #include <QMap>
 #include <QColor>
 #include <QObject>
+#include <QMouseEvent>
+#include <QPixmap>
+
 class SpriteModel : public QObject{
     Q_OBJECT
 public:
@@ -72,9 +75,10 @@ signals:
 private:
     QMap<QString, SpriteTool*> tools;
     SpriteTool* currTool;
+    QPixmap currFrame;
     QColor backgroundColor;
     QColor currColor;
-    QList<int> frames; // This int will be replace with Frames
+    QList<QPixmap> frames; // This int will be replace with Frames
 
 };
 #endif // SPRITEMODEL_H

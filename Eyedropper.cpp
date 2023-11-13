@@ -2,17 +2,12 @@
 
 Eyedropper::Eyedropper() : SpriteTool(){}
 
-void Eyedropper::onMousePress(QMouseEvent *event)
-{
+void Eyedropper::mousePressed(){
 
 }
-
-void Eyedropper::onMouseRelease(QMouseEvent *event)
-{
+void Eyedropper::mouseReleased(){
 
 }
-
-void Eyedropper::onMouseMove(QMouseEvent *event)
-{
-
+void Eyedropper::mouseMoved(){
 }
+

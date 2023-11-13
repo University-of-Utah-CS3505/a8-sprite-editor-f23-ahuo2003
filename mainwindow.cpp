@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "SpriteModel.h"
+#include "Canvas.h"
 MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -22,6 +23,7 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     whiteColorPreview.fill(Qt::white);
     whiteCanvas.fill(Qt::white);
 
+
     ui->animationPreview->setPixmap(animationPrev);
     ui->drawingCanvas->setPixmap(whiteCanvas);
     ui->colorPreview->setPixmap(whiteColorPreview);
@@ -31,11 +33,13 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     ui->greenSlider->setRange(0,255);
     ui->blueSlider ->setRange(0,255);
 
+    //Canvas *canvas = ui->drawingCanvas;
+    //connect(canvas, canvas->mousePressEvent, this, );
     connect(ui->redSlider  , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
 
-    connect(&model, SIGNAL(chooseColor(QColor)), ui->colorPreview, SLOT(changeColorPreview()));
+    connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeColorPreview);
 }
 
 MainWindow::~MainWindow()
@@ -46,8 +50,11 @@ MainWindow::~MainWindow()
 void MainWindow::onSlidersValueChanged()
 {
     int red   = ui->redSlider  ->value();
+    qDebug() << red;
     int green = ui->greenSlider->value();
+    qDebug() << green;
     int blue  = ui->blueSlider ->value();
+    qDebug() << blue;
 
     //model.changeColor(red, green, blue);
 }

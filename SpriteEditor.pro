@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     Bucket.cpp \
+    Canvas.cpp \
     Eraser.cpp \
     Eyedropper.cpp \
     Filter.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     Bucket.h \
+    Canvas.h \
     Eraser.h \
     Eyedropper.h \
     Filter.h \

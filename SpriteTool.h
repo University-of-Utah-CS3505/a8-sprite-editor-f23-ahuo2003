@@ -1,13 +1,12 @@
 #ifndef SPRITETOOL_H
 #define SPRITETOOL_H
-#include <QMouseEvent>
 
-class SpriteTool{
+class SpriteTool {
     public:
         SpriteTool();
-        virtual void onMousePress(QMouseEvent *event);
-        virtual void onMouseRelease(QMouseEvent *event);
-        virtual void onMouseMove(QMouseEvent *event);
+        virtual void mousePressed();
+        virtual void mouseReleased();
+        virtual void mouseMoved();
 };
 
 #endif // SPRITETOOL_H

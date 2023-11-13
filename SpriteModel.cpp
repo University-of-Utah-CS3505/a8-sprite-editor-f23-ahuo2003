@@ -5,6 +5,7 @@
 #include "Eyedropper.h"
 #include "Filter.h"
 #include <iostream>
+#include <QMouseEvent>
 
 SpriteModel::SpriteModel(QObject *parent) : QObject(parent){}
 
@@ -15,29 +16,31 @@ void SpriteModel::start()
     frames.clear();
 
     //Put tools in the Map
-    tools["Pencil"] = new Pencil();
-    tools["Eraser"] = new Eraser();
-    tools["Bucket"] = new Bucket();
+    tools["Pencil"]     = new Pencil();
+    tools["Eraser"]     = new Eraser();
+    tools["Bucket"]     = new Bucket();
     tools["Eyedropper"] = new Eyedropper();
-    tools["Filter"] = new Filter();
+    tools["Filter"]     = new Filter();
 
     //White Background, Black Cursor
     backgroundColor = Qt::white;
     currColor = Qt::black;
+    currTool = tools["Pencil"];
 }
 
 void SpriteModel::changeTool(SpriteTool tool)
 {
     QString toolName = typeid(tool).name();
     this->currTool = tools.value(toolName);
-    std::cout << toolName.toStdString() << " was selected and declared to currTool" << std::endl;
 }
 
 void SpriteModel::useTool(QMouseEvent *event){
-    //Implementing rn
-//    this->currTool->onMouseMove(event);
-//    this->currTool->onMousePressed(event);
-//    this->currTool->onMouseRelease(event);
+    if (event->type() == QEvent::MouseButtonPress)
+        this->currTool->mousePressed();
+    else if (event->type() == QEvent::MouseButtonRelease)
+        this->currTool->mouseReleased();
+    else if (event->type() == QEvent::MouseMove)
+        this->currTool->mouseMoved();
 }
 
 void SpriteModel::undo()
