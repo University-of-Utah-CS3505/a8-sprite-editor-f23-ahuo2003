@@ -3,33 +3,27 @@
 
 Bucket::Bucket() : SpriteTool(){}
 
-void Bucket::onMousePress(QMouseEvent *event)
-{
-//    if (!pixmap.isNull()) {
-//        QPoint pressPos = event->pos();
-//        // Get the color of the pixel at the pressed position
-//        QColor startColor = pixmap.toImage().pixelColor(pressPos);
+void Bucket::mousePressed() {
+    //    if (!pixmap.isNull()) {
+    //        QPoint pressPos = event->pos();
+    //        // Get the color of the pixel at the pressed position
+    //        QColor startColor = pixmap.toImage().pixelColor(pressPos);
 
-//        // Check if the new color is different from the starting color
-//        if (newColor != startColor) {
-//            // Perform the flood fill
-//            floodFill(pixmap, pressPos, startColor, newColor);
-//        }
-//    }
+    //        // Check if the new color is different from the starting color
+    //        if (newColor != startColor) {
+    //            // Perform the flood fill
+    //            floodFill(pixmap, pressPos, startColor, newColor);
+    //        }
+    //    }
 }
-
-void Bucket::mousePressed(){
+void Bucket::mouseReleased() {
 
 }
-void Bucket::mouseReleased(){
-
-}
-void Bucket::mouseMoved(){
+void Bucket::mouseMoved() {
 
 }
 
-void Bucket::floodFill(QImage& image, const QPoint& pos, const QColor& startColor, const QColor& newColor)
-{
+void Bucket::floodFill(QImage& image, const QPoint& pos, const QColor& startColor, const QColor& newColor) {
     if (pos.x() < 0 || pos.x() >= image.width() || pos.y() < 0 || pos.y() >= image.height()) {
         // Check if the position is within bounds
         return;
