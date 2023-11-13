@@ -7,11 +7,9 @@
 #include <iostream>
 #include <QMouseEvent>
 
-SpriteModel::SpriteModel(QObject *parent) : QObject(parent){}
-
-void SpriteModel::start()
-{
+SpriteModel::SpriteModel(QObject *parent) : QObject(parent){
     //Empty Map and QList
+    currFrame = QImage(512, 512, QImage::Format_ARGB32);
     tools.clear();
     frames.clear();
 
@@ -31,7 +29,7 @@ void SpriteModel::start()
 void SpriteModel::changeTool(SpriteTool tool)
 {
     QString toolName = typeid(tool).name();
-    this->currTool = tools.value(toolName);
+    currTool = tools.value(toolName);
 }
 
 void SpriteModel::useTool(QMouseEvent *event){
@@ -42,7 +40,7 @@ void SpriteModel::useTool(QMouseEvent *event){
 //    else if (event->type() == QEvent::MouseMove)
 //        this->currTool->mouseMoved();
     std::cout << "useTool Requested" << std::endl;
-    this->currTool->mousePressed(currFrame, currColor, event);
+    currTool->mousePressed(currFrame, currColor, event);
     emit updateFrame(currFrame);
     std::cout << "MouseEvent Triggered" << std::endl;
 }

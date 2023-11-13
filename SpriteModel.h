@@ -12,10 +12,6 @@ class SpriteModel : public QObject {
 public:
   explicit SpriteModel(QObject *parent = nullptr);
 public slots:
-  /**
-   * @brief start sets all the private values to its default state
-   */
-  void start();
 
   /**
    * @brief changeTool changes the currentTool for the tool desired
