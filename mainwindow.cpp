@@ -29,6 +29,16 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     ui->drawingCanvas->setPixmap(whiteCanvas);
     ui->colorPreview->setPixmap(whiteColorPreview);
 
+    // Set Icon for the tools
+    ui->pencilTool->setIcon(QIcon(":/icons/Pencil.png"));
+    ui->pencilTool->setIconSize(QSize(20, 20));
+    ui->eraserTool->setIcon(QIcon(":/icons/Eraser.png"));
+    ui->eraserTool->setIconSize(QSize(20, 20));
+    ui->eyeDropperTool->setIcon(QIcon(":/icons/Eyedropper.png"));
+    ui->eyeDropperTool->setIconSize(QSize(20, 20));
+    ui->bucketTool->setIcon(QIcon(":/icons/BucketIcon.png"));
+    ui->bucketTool->setIconSize(QSize(20, 20));
+
     // Set sliders Range to match RGB's range of values.
     ui->redSlider  ->setRange(0,255);
     ui->greenSlider->setRange(0,255);
