@@ -77,8 +77,3 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #787878;
 }
-
-QLabel {
-    border: 1px solid #424242;
-    background-color: #535353;
-}

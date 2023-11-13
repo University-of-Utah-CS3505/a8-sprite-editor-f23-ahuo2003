@@ -22,7 +22,7 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     QPixmap animationPrev(ui->animationPreview->size());
     animationPrev.fill(Qt::white);
     whiteColorPreview.fill(Qt::white);
-    whiteCanvas.fill(Qt::white);
+    whiteCanvas.fill(Qt::transparent);
 
 
     ui->animationPreview->setPixmap(animationPrev);
@@ -34,8 +34,10 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     ui->greenSlider->setRange(0,255);
     ui->blueSlider ->setRange(0,255);
 
+    ui->drawingCanvas->setStyleSheet("border: 1px solid black");
     //Canvas-to-Tools connection
     connect(ui->drawingCanvas, &Canvas::mouseEventSignal, &model, &SpriteModel::useTool);
+    connect(&model, &SpriteModel::updateFrame, ui->drawingCanvas, &Canvas::redrawCanvas);
 
     //Slider Connections
     connect(ui->redSlider  , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
@@ -65,9 +67,3 @@ void MainWindow::changeColorPreview(int red, int green, int blue)
     whiteColorPreview.fill(myColor);
     ui->colorPreview->setPixmap(whiteColorPreview);
 }
-
-void MainWindow::redrawCanvas(QImage frame)
-{
-    ui->drawingCanvas->
-}
-
