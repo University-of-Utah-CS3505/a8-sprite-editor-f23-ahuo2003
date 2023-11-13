@@ -13,7 +13,7 @@ void Bucket::mousePressed(QImage& image, QColor& newColor, QMouseEvent *event) {
             // Check if the new color is different from the starting color
             if (newColor != startColor) {
                 // Perform the flood fill
-                floodFill(image, scaledPoint, startColor, newColor);
+                //floodFill(image, scaledPoint, startColor, newColor);
             }
         }
 }
