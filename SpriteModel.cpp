@@ -6,10 +6,18 @@
 #include "Filter.h"
 #include <iostream>
 #include <QMouseEvent>
+#include <QDebug>
 
 SpriteModel::SpriteModel(QObject *parent) : QObject(parent){
     //Empty Map and QList
     currFrame = QImage(512, 512, QImage::Format_ARGB32);
+
+    //REMOVE TEST
+    //int width = 32;
+    //int height = 32;
+    //currFrame = currFrame.scaled(width, height);
+    //END OF REMOVE TEST
+
     tools.clear();
     frames.clear();
 
@@ -35,9 +43,12 @@ void SpriteModel::changeTool(SpriteTool tool)
 void SpriteModel::useTool(QMouseEvent *event){
     if (event->type() == QEvent::MouseButtonPress)
         this->currTool->mousePressed(currFrame, currColor, event);
-    if (event->type() == QEvent::MouseButtonRelease)
+    else if (event->type() == QEvent::MouseButtonRelease){
         this->currTool->mouseReleased();
-    if (event->type() == QEvent::MouseMove)
+        if (typeid(currTool).name() == "Eyedropper")
+            emit chooseColor(currColor);
+    }
+    else if (event->type() == QEvent::MouseMove)
         this->currTool->mouseMoved(currFrame, currColor, event);
     emit updateFrame(currFrame);
 }
@@ -64,6 +75,5 @@ void SpriteModel::nextFrame()
 
 void SpriteModel::changeColor(int red, int green, int blue)
 {
-    QColor newColor = QColor(red, green, blue);
-    emit chooseColor(newColor);
+    currColor = QColor(red, green, blue);
 }

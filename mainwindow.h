@@ -20,6 +20,8 @@ public:
 public slots:
     void onSlidersValueChanged();
     void changeColorPreview(int red, int green, int blue);
+signals:
+    void changeModelCurrentColor(int red, int green, int blue);
 
 private:
     Ui::MainWindow *ui;
