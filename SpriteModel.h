@@ -5,7 +5,7 @@
 #include <QMap>
 #include <QMouseEvent>
 #include <QObject>
-#include <QPixmap>
+#include <QImage>
 
 class SpriteModel : public QObject {
   Q_OBJECT
@@ -59,7 +59,7 @@ signals:
    * @brief updateFrame tells the view to update the drawing in the current
    * Frame.
    */
-  void updateFrame();
+  void updateFrame(QImage);
 
   /**
    * @brief chooseTool tells the view to show the user the selected tool
@@ -77,9 +77,9 @@ signals:
 private:
   QMap<QString, SpriteTool *> tools;
   SpriteTool *currTool;
-  QPixmap currFrame;
+  QImage currFrame;
   QColor backgroundColor;
   QColor currColor;
-  QList<QPixmap> frames; // This int will be replace with Frames
+  QList<QImage> frames; // This int will be replace with Frames
 };
 #endif // SPRITEMODEL_H

@@ -36,12 +36,14 @@ void SpriteModel::changeTool(SpriteTool tool)
 
 void SpriteModel::useTool(QMouseEvent *event){
 //    if (event->type() == QEvent::MouseButtonPress)
-//        this->currTool->mousePressed();
+//        this->currTool->mousePressed(currFrame, currColor, event);
 //    else if (event->type() == QEvent::MouseButtonRelease)
 //        this->currTool->mouseReleased();
 //    else if (event->type() == QEvent::MouseMove)
 //        this->currTool->mouseMoved();
-
+    std::cout << "useTool Requested" << std::endl;
+    this->currTool->mousePressed(currFrame, currColor, event);
+    emit updateFrame(currFrame);
     std::cout << "MouseEvent Triggered" << std::endl;
 }
 
