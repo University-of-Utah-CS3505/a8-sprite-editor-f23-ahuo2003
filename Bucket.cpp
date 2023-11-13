@@ -1,25 +1,26 @@
 #include "Bucket.h"
-#include "qpixmap.h"
+#include <QImage>
 
 Bucket::Bucket() : SpriteTool(){}
 
-void Bucket::mousePressed() {
-    //    if (!pixmap.isNull()) {
-    //        QPoint pressPos = event->pos();
-    //        // Get the color of the pixel at the pressed position
-    //        QColor startColor = pixmap.toImage().pixelColor(pressPos);
+void Bucket::mousePressed(QImage& image, QColor& newColor, QMouseEvent *event) {
+        if (!image.isNull()) {
+            QPoint scaledPoint(event->pos());
+            scaledPoint.setX(scaledPoint.x() - 1);
+            // Get the color of the pixel at the pressed position
+            QColor startColor = image.pixelColor(scaledPoint);
 
-    //        // Check if the new color is different from the starting color
-    //        if (newColor != startColor) {
-    //            // Perform the flood fill
-    //            floodFill(pixmap, pressPos, startColor, newColor);
-    //        }
-    //    }
+            // Check if the new color is different from the starting color
+            if (newColor != startColor) {
+                // Perform the flood fill
+                floodFill(image, scaledPoint, startColor, newColor);
+            }
+        }
 }
 void Bucket::mouseReleased() {
 
 }
-void Bucket::mouseMoved() {
+void Bucket::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event) {
 
 }
 
