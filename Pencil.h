@@ -4,16 +4,21 @@
 #include <QImage>
 #include <QColor>
 #include <QMouseEvent>
+#include <QPainter>
+#include <QPoint>
 
 class Pencil : public SpriteTool {
 public:
   Pencil();
-  void drawPixel(QImage& image, QColor& currColor, QMouseEvent *event);
 
 protected:
   virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event);
   virtual void mouseReleased();
   virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event);
+
+private:
+  QPainter painter;
+  QPoint startPoint, endPoint;
 };
 
 #endif // PENCIL_H
