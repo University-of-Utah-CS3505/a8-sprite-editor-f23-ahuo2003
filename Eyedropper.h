@@ -5,11 +5,11 @@
 class Eyedropper : public SpriteTool {
 public:
   Eyedropper();
-
+  QColor getPixelColor(QImage& image, QMouseEvent *event);
 protected:
-  virtual void mousePressed();
+  virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event);
   virtual void mouseReleased();
-  virtual void mouseMoved();
+  virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event);
 };
 
 #endif // EYEDROPPER_H
