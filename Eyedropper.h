@@ -2,12 +2,14 @@
 #define EYEDROPPER_H
 #include "SpriteTool.h"
 
-class Eyedropper : public SpriteTool{
+class Eyedropper : public SpriteTool {
 public:
-    Eyedropper();
-    virtual void mousePressed();
-    virtual void mouseReleased();
-    virtual void mouseMoved();
+  Eyedropper();
+
+protected:
+  virtual void mousePressed();
+  virtual void mouseReleased();
+  virtual void mouseMoved();
 };
 
 #endif // EYEDROPPER_H
