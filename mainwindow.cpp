@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "SpriteModel.h"
 #include "Canvas.h"
+
 MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -38,8 +39,6 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     connect(ui->redSlider  , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
-
-    connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeColorPreview);
 }
 
 MainWindow::~MainWindow()
@@ -50,26 +49,18 @@ MainWindow::~MainWindow()
 void MainWindow::onSlidersValueChanged()
 {
     int red   = ui->redSlider  ->value();
-    qDebug() << red;
     int green = ui->greenSlider->value();
-    qDebug() << green;
     int blue  = ui->blueSlider ->value();
-    qDebug() << blue;
 
-    //model.changeColor(red, green, blue);
+    changeColorPreview(red, green, blue);
 }
 
-void MainWindow::changeColorPreview()
+void MainWindow::changeColorPreview(int red, int green, int blue)
 {
-    int red   = ui->redSlider  ->value();
-    int green = ui->greenSlider->value();
-    int blue  = ui->blueSlider ->value();
-    QColor mycolor = QColor(red, green, blue);
+    QColor myColor = QColor(red, green, blue);
 
-    // Change the ColorPreview Label to the current Color.
-    ui->colorPreview->setAutoFillBackground(true);
-    QPalette palette = ui->colorPreview->palette();
-    palette.setColor(QPalette::Base, mycolor);
-    ui->colorPreview->setPalette(palette);
+    QPixmap whiteColorPreview(ui->colorPreview->size());
+    whiteColorPreview.fill(myColor);
+    ui->colorPreview->setPixmap(whiteColorPreview);
 }
 

@@ -19,7 +19,7 @@ public:
 
 public slots:
     void onSlidersValueChanged();
-    void changeColorPreview();
+    void changeColorPreview(int red, int green, int blue);
 
 private:
     Ui::MainWindow *ui;
