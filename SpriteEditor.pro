@@ -18,7 +18,6 @@ SOURCES += \
     SpriteModel.cpp \
     SpriteTool.cpp \
     cursor.cpp \
-    doublelinkedlist.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -32,7 +31,6 @@ HEADERS += \
     SpriteModel.h \
     SpriteTool.h \
     cursor.h \
-    doublelinkedlist.h \
     mainwindow.h
 
 FORMS += \
