@@ -3,6 +3,7 @@
 
 // General Tool Declaration
 Canvas::Canvas(QLabel *parent) : QLabel(parent){}
+
 void Canvas::mousePressEvent(QMouseEvent *event){
     std::cout << "MousePressed" << std::endl;
 }

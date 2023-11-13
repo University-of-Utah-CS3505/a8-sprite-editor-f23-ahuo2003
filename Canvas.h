@@ -5,7 +5,6 @@
 
 class Canvas : public QLabel {
     Q_OBJECT
-
     public:
         Canvas(QLabel *parent = nullptr);
     protected:
