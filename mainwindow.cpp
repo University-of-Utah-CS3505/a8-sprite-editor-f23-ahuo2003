@@ -39,7 +39,7 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
 
-    connect(&model, SIGNAL(chooseColor(QColor)), ui->colorPreview, SLOT(changeColorPreview()));
+    connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeColorPreview);
 }
 
 MainWindow::~MainWindow()
@@ -50,8 +50,11 @@ MainWindow::~MainWindow()
 void MainWindow::onSlidersValueChanged()
 {
     int red   = ui->redSlider  ->value();
+    qDebug() << red;
     int green = ui->greenSlider->value();
+    qDebug() << green;
     int blue  = ui->blueSlider ->value();
+    qDebug() << blue;
 
     //model.changeColor(red, green, blue);
 }
