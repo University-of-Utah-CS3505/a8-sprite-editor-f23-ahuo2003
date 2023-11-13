@@ -4,6 +4,12 @@
 // General Tool Declaration
 Canvas::Canvas(QWidget *parent) : QLabel(parent) {}
 
+void Canvas::redrawCanvas(QImage frame)
+{
+    setPixmap(QPixmap::fromImage(frame));
+    std::cout << "Canvas redrawn" << std::endl;
+}
+
 void Canvas::mousePressEvent(QMouseEvent *event) {
   emit mouseEventSignal(event);
   std::cout << "MousePressed" << std::endl;

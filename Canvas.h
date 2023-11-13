@@ -10,6 +10,8 @@ public:
 
 signals:
   void mouseEventSignal(QMouseEvent *event);
+public slots:
+  void redrawCanvas(QImage frame);
 
 protected:
   virtual void mousePressEvent(QMouseEvent *event) override;
