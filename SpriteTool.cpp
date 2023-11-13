@@ -9,6 +9,6 @@ void SpriteTool::mousePressed(QImage& image, QColor& currColor, QMouseEvent *eve
 void SpriteTool::mouseReleased(){
 
 }
-void SpriteTool::mouseMoved(){
+void SpriteTool::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event){
 
 }
