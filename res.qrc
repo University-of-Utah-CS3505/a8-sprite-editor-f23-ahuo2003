@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>res/Bucket.png</file>
         <file>Eraser.png</file>
         <file>Eyedropper.png</file>
         <file>Filter.png</file>
         <file>Pencil.png</file>
+        <file>BucketIcon.png</file>
     </qresource>
     <qresource prefix="/stylesheet">
         <file>res/stylesheet/stylesheet.qss</file>
