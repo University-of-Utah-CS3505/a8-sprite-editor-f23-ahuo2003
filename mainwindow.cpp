@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "SpriteModel.h"
+#include "Canvas.h"
 MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -22,6 +23,7 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     whiteColorPreview.fill(Qt::white);
     whiteCanvas.fill(Qt::white);
 
+
     ui->animationPreview->setPixmap(animationPrev);
     ui->drawingCanvas->setPixmap(whiteCanvas);
     ui->colorPreview->setPixmap(whiteColorPreview);
@@ -31,6 +33,8 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     ui->greenSlider->setRange(0,255);
     ui->blueSlider ->setRange(0,255);
 
+    //Canvas *canvas = ui->drawingCanvas;
+    //connect(canvas, canvas->mousePressEvent, this, );
     connect(ui->redSlider  , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);

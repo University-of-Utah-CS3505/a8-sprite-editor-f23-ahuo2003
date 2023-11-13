@@ -2,6 +2,13 @@
 
 // General Tool Declaration
 SpriteTool::SpriteTool(){}
-void SpriteTool::onMousePress(QMouseEvent *event){}
-void SpriteTool::onMouseRelease(QMouseEvent *event){}
-void SpriteTool::onMouseMove(QMouseEvent *event){}
+
+void SpriteTool::mousePressed(){
+
+}
+void SpriteTool::mouseReleased(){
+
+}
+void SpriteTool::mouseMoved(){
+
+}

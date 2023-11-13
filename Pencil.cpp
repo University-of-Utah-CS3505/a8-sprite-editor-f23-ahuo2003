@@ -1,17 +1,13 @@
 #include "Pencil.h"
 
 Pencil::Pencil() : SpriteTool(){}
-void Pencil::onMousePress(QMouseEvent *event)
-{
+
+void Pencil::mousePressed(){
 
 }
-
-void Pencil::onMouseRelease(QMouseEvent *event)
-{
+void Pencil::mouseReleased(){
 
 }
-
-void Pencil::onMouseMove(QMouseEvent *event)
-{
+void Pencil::mouseMoved(){
 
 }

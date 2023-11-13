@@ -2,17 +2,12 @@
 
 Bucket::Bucket() : SpriteTool(){}
 
-void Bucket::onMousePress(QMouseEvent *event)
-{
+void Bucket::mousePressed(){
 
 }
-
-void Bucket::onMouseRelease(QMouseEvent *event)
-{
+void Bucket::mouseReleased(){
 
 }
-
-void Bucket::onMouseMove(QMouseEvent *event)
-{
+void Bucket::mouseMoved(){
 
 }
