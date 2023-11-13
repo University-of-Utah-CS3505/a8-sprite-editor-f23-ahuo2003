@@ -20,6 +20,7 @@ public:
 public slots:
     void onSlidersValueChanged();
     void changeColorPreview(int red, int green, int blue);
+    void redrawCanvas(QImage frame);
 
 private:
     Ui::MainWindow *ui;
