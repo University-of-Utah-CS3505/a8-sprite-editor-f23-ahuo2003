@@ -35,12 +35,14 @@ void SpriteModel::changeTool(SpriteTool tool)
 }
 
 void SpriteModel::useTool(QMouseEvent *event){
-    if (event->type() == QEvent::MouseButtonPress)
-        this->currTool->mousePressed();
-    else if (event->type() == QEvent::MouseButtonRelease)
-        this->currTool->mouseReleased();
-    else if (event->type() == QEvent::MouseMove)
-        this->currTool->mouseMoved();
+//    if (event->type() == QEvent::MouseButtonPress)
+//        this->currTool->mousePressed();
+//    else if (event->type() == QEvent::MouseButtonRelease)
+//        this->currTool->mouseReleased();
+//    else if (event->type() == QEvent::MouseMove)
+//        this->currTool->mouseMoved();
+
+    std::cout << "MouseEvent Triggered" << std::endl;
 }
 
 void SpriteModel::undo()
