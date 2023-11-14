@@ -16,6 +16,11 @@ void Canvas::redrawCanvas(QImage frame)
     std::cout << "Canvas redrawn" << std::endl;
 }
 
+void Canvas::updateCanvasScaleFactor(int scaleFactor)
+{
+    this->scaleFactor = scaleFactor;
+}
+
 void Canvas::drawGrid(QPixmap &pixmap){
     QPainter painter(&pixmap);
     painter.setPen(QPen(Qt::gray, 1, Qt::SolidLine));

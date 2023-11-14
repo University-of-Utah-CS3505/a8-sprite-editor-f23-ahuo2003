@@ -12,16 +12,18 @@ signals:
   void mouseEventSignal(QMouseEvent *event);
 public slots:
   void redrawCanvas(QImage frame);
+  void updateCanvasScaleFactor(int scaleFactor);
 
 protected:
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override;
-
-  private:
   void drawGrid(QPixmap &pixmap);
-  QPoint mapToImageCoords(const QPoint &point);
+  friend class MainWindow;
+
+private:
   int scaleFactor;
+
 };
 
 #endif // CANVAS_H
