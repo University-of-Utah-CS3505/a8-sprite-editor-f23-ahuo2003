@@ -19,7 +19,8 @@ SOURCES += \
     SpriteTool.cpp \
     cursor.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    scalecanvas.cpp
 
 HEADERS += \
     Bucket.h \
@@ -31,10 +32,12 @@ HEADERS += \
     SpriteModel.h \
     SpriteTool.h \
     cursor.h \
-    mainwindow.h
+    mainwindow.h \
+    scalecanvas.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    scalecanvas.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

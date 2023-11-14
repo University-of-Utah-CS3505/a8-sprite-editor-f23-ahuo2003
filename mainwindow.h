@@ -23,11 +23,11 @@ public:
 public slots:
     void onSlidersValueChanged();
     void changeColorPreview(int red, int green, int blue);
-private slots:
     void pencilToggled();
     void eraserToggled();
     void bucketToggled();
     void eyeDropperToggled();
+    void setCanvasSize();
 signals:
     void changeModelCurrentColor(int red, int green, int blue);
 

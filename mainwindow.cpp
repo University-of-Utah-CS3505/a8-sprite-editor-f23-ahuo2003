@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "SpriteModel.h"
 #include "Canvas.h"
+#include "scalecanvas.h"
 
 MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     : QMainWindow(parent)
@@ -47,11 +48,20 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(this, &MainWindow::changeModelCurrentColor, &model, &SpriteModel::changeColor);
+
+    //Dialog Box Connection
+    connect(ui->canvasSize, &QPushButton::clicked, this, &MainWindow::setCanvasSize);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setCanvasSize(){
+    ScaleCanvas canvasSize;
+    canvasSize.setModal(true);
+    canvasSize.exec();
 }
 
 void MainWindow::onSlidersValueChanged()
