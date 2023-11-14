@@ -17,20 +17,24 @@ void Pencil::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event) 
     //Draw a Pixel
     painter.drawPoint(event->pos());
     //Set x1 and y1 to startPoint
-    startPoint = event->pos();
+    QPoint point(event->pos().x() / 64, event->pos().y() / 64);
+    startPoint = point;
+    qDebug() << startPoint;
 }
 
 void Pencil::mouseReleased(){
-    //End Painter
     painter.end();
+
 }
 void Pencil::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event){
     //Set x2 and y2 to endPoint
-    endPoint = event->pos();
+    QPoint point(event->pos().x() / 64, event->pos().y() / 64);
+    endPoint = point;
 
     //Draw a Line between (x1,y1) and (x2,y2)
     painter.drawLine(startPoint, endPoint);
 
     //Get a new starting point for next line connection.
-    startPoint = event->pos();
+    QPoint point2(event->pos().x() / 64, event->pos().y() / 64);
+    startPoint = point2;
 }

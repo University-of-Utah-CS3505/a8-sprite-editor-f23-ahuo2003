@@ -24,7 +24,7 @@ SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(fram
     backgroundColor = Qt::white;
     currColor = Qt::black;
     currTool = tools["Pencil"];
-    currFrame = QImage(512, 512, QImage::Format_ARGB32);
+    currFrame = QImage(8, 8, QImage::Format_ARGB32);
     frames.append(currFrame);
     framesIterator.toFront();
     //emit signal to disable previous frame button, or have it default to disabled in view.
