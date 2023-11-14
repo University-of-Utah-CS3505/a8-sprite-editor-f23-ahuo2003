@@ -16,7 +16,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(SpriteModel& model, QWidget *parent = nullptr);
     ~MainWindow();
-
+    
+    void SetIcons();
+    
 public slots:
     void onSlidersValueChanged();
     void changeColorPreview(int red, int green, int blue);
