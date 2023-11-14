@@ -1,4 +1,4 @@
-#include "cursor.h"
+#include "Cursor.h"
 
 Cursor::Cursor() {
     name = "Cursor";

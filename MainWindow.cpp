@@ -1,8 +1,8 @@
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "SpriteModel.h"
 #include "Canvas.h"
-#include "scalecanvas.h"
+#include "ScaleCanvas.h"
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>

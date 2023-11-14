@@ -1,4 +1,4 @@
-#include "scalecanvas.h"
+#include "ScaleCanvas.h"
 #include "ui_scalecanvas.h"
 
 ScaleCanvas::ScaleCanvas(QWidget *parent) :

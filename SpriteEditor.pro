@@ -11,33 +11,35 @@ CONFIG += c++17
 SOURCES += \
     Bucket.cpp \
     Canvas.cpp \
+    Cursor.cpp \
     Eraser.cpp \
     Eyedropper.cpp \
     Filter.cpp \
+    Frame.cpp \
+    MainWindow.cpp \
     Pencil.cpp \
+    ScaleCanvas.cpp \
     SpriteModel.cpp \
     SpriteTool.cpp \
-    cursor.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    scalecanvas.cpp
+    main.cpp
 
 HEADERS += \
     Bucket.h \
     Canvas.h \
+    Cursor.h \
     Eraser.h \
     Eyedropper.h \
     Filter.h \
+    Frame.h \
+    MainWindow.h \
     Pencil.h \
+    ScaleCanvas.h \
     SpriteModel.h \
-    SpriteTool.h \
-    cursor.h \
-    mainwindow.h \
-    scalecanvas.h
+    SpriteTool.h
 
 FORMS += \
-    mainwindow.ui \
-    scalecanvas.ui
+    MainWindow.ui \
+    ScaleCanvas.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
