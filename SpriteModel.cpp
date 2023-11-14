@@ -4,7 +4,6 @@
 #include "Bucket.h"
 #include "Eyedropper.h"
 #include "Filter.h"
-#include <iostream>
 #include <QMouseEvent>
 #include <QDebug>
 
@@ -21,31 +20,38 @@ SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(fram
     tools["Filter"]     = new Filter();
 
     //Set the rest of the variables to default values
-    backgroundColor = Qt::white;
-    currColor = Qt::black;
-    currTool = tools["Pencil"];
-    currFrame = QImage(8, 8, QImage::Format_ARGB32);
+    backgroundColor     = Qt::white;
+    currColor           = Qt::black;
+    currTool            = tools["Pencil"];
+    currFrame           = QImage(8, 8, QImage::Format_ARGB32);
+    scaleFactor         = 64;
+
+    //Fill the currentImage completely with transparent pixels
+    currFrame.fill(Qt::transparent);
+
+    //Add initial frame to frame iterator.
     frames.append(currFrame);
     framesIterator.toFront();
-    //emit signal to disable previous frame button, or have it default to disabled in view.
 }
 
-void SpriteModel::changeTool(SpriteTool tool)
+void SpriteModel::changeTool(QString toolName)
 {
-    QString toolName = typeid(tool).name();
-    currTool = tools.value(toolName);
+    if (tools.contains(toolName)) {
+        currTool = tools.value(toolName);
+    }
 }
 
 void SpriteModel::useTool(QMouseEvent *event){
     if (event->type() == QEvent::MouseButtonPress)
-        this->currTool->mousePressed(currFrame, currColor, event);
+        this->currTool->mousePressed(currFrame, currColor, event, scaleFactor);
     else if (event->type() == QEvent::MouseButtonRelease){
         this->currTool->mouseReleased();
-        if (typeid(currTool).name() == "Eyedropper")
+        if (currTool->getName() == "Eyedropper")
             emit chooseColor(currColor);
+        qDebug()<< currTool->getName();
     }
     else if (event->type() == QEvent::MouseMove)
-        this->currTool->mouseMoved(currFrame, currColor, event);
+        this->currTool->mouseMoved(currFrame, currColor, event, scaleFactor);
     emit updateFrame(currFrame);
 }
 
@@ -88,4 +94,9 @@ void SpriteModel::nextFrame()
 void SpriteModel::changeColor(int red, int green, int blue)
 {
     currColor = QColor(red, green, blue);
+}
+
+void SpriteModel::rescale(QSize newSize){
+    currFrame = currFrame.scaled(newSize, Qt::KeepAspectRatio);
+    scaleFactor = newSize.width() * newSize.height();
 }

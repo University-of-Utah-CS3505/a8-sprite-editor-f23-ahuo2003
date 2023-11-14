@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QImage>
 #include <QListIterator>
+#include <QSize>
 
 class SpriteModel : public QObject {
   Q_OBJECT
@@ -18,7 +19,7 @@ public slots:
    * @brief changeTool changes the currentTool for the tool desired
    * @param tool
    */
-  void changeTool(SpriteTool tool);
+  void changeTool(QString tool);
 
   /**
    * @brief useTool uses the mousePressed method of the tool selected.
@@ -51,6 +52,13 @@ public slots:
    * view.
    */
   void changeColor(int red, int green, int blue);
+
+  /**
+   * @brief rescale re-scales the image and recalculates the scaleFactor
+   * based on the canvas dimensions.
+   */
+  void rescale(QSize newSize);
+
 signals:
   /**
    * @brief updateFrame tells the view to update the drawing in the current
@@ -79,5 +87,6 @@ private:
   QColor currColor;
   QList<QImage> frames;
   QListIterator<QImage> framesIterator;
+  int scaleFactor;
 };
 #endif // SPRITEMODEL_H
