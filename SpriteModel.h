@@ -79,6 +79,8 @@ signals:
    */
   void chooseColor(QColor currentColor);
 
+  void updateScaleFactor(int scaleFactor);
+
 private:
   QMap<QString, SpriteTool *> tools;
   SpriteTool *currTool;

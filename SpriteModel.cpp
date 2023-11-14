@@ -99,4 +99,5 @@ void SpriteModel::changeColor(int red, int green, int blue)
 void SpriteModel::rescale(QSize newSize){
     currFrame = currFrame.scaled(newSize, Qt::KeepAspectRatio);
     scaleFactor = newSize.width() * newSize.height();
+    emit updateScaleFactor(scaleFactor);
 }
