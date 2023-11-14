@@ -3,6 +3,12 @@
 #include "SpriteModel.h"
 #include "Canvas.h"
 #include "scalecanvas.h"
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QFile>
+#include <QFileDialog>
+
 
 MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     : QMainWindow(parent)
@@ -145,4 +151,109 @@ void MainWindow::SetIcons()
     ui->playButton->setIconSize(QSize(30, 30));
     ui->stopButton->setIcon(QIcon(":/stylesheet/res/icons/Pause.png"));
     ui->stopButton->setIconSize(QSize(30, 30));
+}
+
+void MainWindow::saveProject(const QString& filePath)
+{
+    // Create a JSON object to represent the project
+    QJsonObject project;
+
+    // Add project-specific information to the JSON object
+    project["projectName"] = "Your Project Name";
+    project["frameCount"] = 1;  // Assuming 1 frame for simplicity, adjust as needed
+
+    // Create a JSON array to represent the frames
+    QJsonArray frames;
+
+    // Assuming 'pixmap' is a QPixmap representing your image
+    // Convert the image to a JSON array of pixel values
+    QJsonArray pixelData;
+//    for (int y = 0; y < pixmap.height(); ++y) {
+//        for (int x = 0; x < pixmap.width(); ++x) {
+//            QColor pixelColor = pixmap.toImage().pixelColor(x, y);
+//            QJsonObject pixel;
+//            pixel["red"] = pixelColor.red();
+//            pixel["green"] = pixelColor.green();
+//            pixel["blue"] = pixelColor.blue();
+//            pixel["alpha"] = pixelColor.alpha();
+//            pixelData.append(pixel);
+//        }
+//    }
+
+    // Create a frame object with the pixel data
+    QJsonObject frame;
+    //frame["width"] = pixmap.width();
+    //frame["height"] = pixmap.height();
+    frame["pixels"] = pixelData;
+
+    // Add the frame to the frames array
+    frames.append(frame);
+
+    // Add the frames array to the project
+    project["frames"] = frames;
+
+    // Convert the JSON object to a JSON document
+    QJsonDocument jsonDoc(project);
+
+    // Save the JSON document to a file with .ssp extension
+    QString savePath = filePath.isEmpty() ?
+                           QFileDialog::getSaveFileName(this, "Save Project", "", "Sprite Sheet Project (*.ssp)") :
+                           filePath;
+
+    if (!savePath.isEmpty()) {
+        QFile saveFile(savePath);
+        if (saveFile.open(QFile::WriteOnly | QFile::Text)) {
+            saveFile.write(jsonDoc.toJson());
+            saveFile.close();
+        } else {
+            qDebug() << "Failed to save project.";
+        }
+    } else {
+        qDebug() << "Save operation canceled.";
+    }
+}
+
+void MainWindow::loadProject(const QString& filePath)
+{
+    // Load the JSON document from the file
+    QFile loadFile(filePath);
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(loadFile.readAll());
+    loadFile.close();
+
+    // Parse the JSON document and retrieve project information
+    QJsonObject project = jsonDoc.object();
+
+    QString projectName = project["projectName"].toString();
+    int frameCount = project["frameCount"].toInt();
+
+    // Retrieve frame information
+    QJsonArray frames = project["frames"].toArray();
+
+    // Process each frame
+    for (int i = 0; i < frameCount; ++i) {
+        QJsonObject frame = frames[i].toObject();
+
+        int width = frame["width"].toInt();
+        int height = frame["height"].toInt();
+
+        // Retrieve pixel data
+        QJsonArray pixelData = frame["pixels"].toArray();
+
+        // Create a QImage and set pixel values
+        QImage image(width, height, QImage::Format_ARGB32);
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                QJsonObject pixel = pixelData[y * width + x].toObject();
+                int red = pixel["red"].toInt();
+                int green = pixel["green"].toInt();
+                int blue = pixel["blue"].toInt();
+                int alpha = pixel["alpha"].toInt();
+
+                image.setPixelColor(x, y, QColor(red, green, blue, alpha));
+            }
+        }
+
+        // Use the QImage 'image' for further processing
+    }
 }
