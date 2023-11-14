@@ -1,32 +1,41 @@
 #include "Bucket.h"
 #include <QImage>
+#include <QDebug>
 
-Bucket::Bucket() : SpriteTool(){}
+Bucket::Bucket() : SpriteTool(){
+    name = "Bucket";
+}
 
-void Bucket::mousePressed(QImage& image, QColor& newColor, QMouseEvent *event) {
-        if (!image.isNull()) {
-            QPoint scaledPoint(event->pos());
-            scaledPoint.setX(scaledPoint.x() - 1);
-            // Get the color of the pixel at the pressed position
+void Bucket::mousePressed(QImage& image, QColor& newColor, QMouseEvent *event, int scaleFactor) {
+    //List to avoid infinite recursion when recursively painting pixels.
+    QList<QPoint> visitedPixels;
+
+    if (!image.isNull()) {
+            QPoint scaledPoint = this->mapToImageCoordinates(event->pos(), scaleFactor);
             QColor startColor = image.pixelColor(scaledPoint);
-
             // Check if the new color is different from the starting color
             if (newColor != startColor) {
                 // Perform the flood fill
-                //floodFill(image, scaledPoint, startColor, newColor);
+                floodFill(image, scaledPoint, startColor, newColor, visitedPixels);
             }
         }
+        visitedPixels.clear();
 }
 void Bucket::mouseReleased() {
+    //Do Nothing
+}
+void Bucket::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor) {
 
 }
-void Bucket::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event) {
 
-}
-
-void Bucket::floodFill(QImage& image, const QPoint& pos, const QColor& startColor, const QColor& newColor) {
+void Bucket::floodFill(QImage& image, const QPoint& pos, const QColor& startColor, const QColor& newColor, QList<QPoint>& visitedPixels) {
     if (pos.x() < 0 || pos.x() >= image.width() || pos.y() < 0 || pos.y() >= image.height()) {
         // Check if the position is within bounds
+        return;
+    }
+
+    // Check if the pixel has already been visited
+    if (visitedPixels.contains(pos)){
         return;
     }
 
@@ -37,10 +46,15 @@ void Bucket::floodFill(QImage& image, const QPoint& pos, const QColor& startColo
 
     // Change the color of the current pixel
     image.setPixelColor(pos, newColor);
+    visitedPixels.append(pos);
 
     // Recursively fill the neighboring pixels
-    floodFill(image, QPoint(pos.x() + 1, pos.y()), startColor, newColor);
-    floodFill(image, QPoint(pos.x() - 1, pos.y()), startColor, newColor);
-    floodFill(image, QPoint(pos.x(), pos.y() + 1), startColor, newColor);
-    floodFill(image, QPoint(pos.x(), pos.y() - 1), startColor, newColor);
+    floodFill(image, QPoint(pos.x() + 1, pos.y())    , startColor, newColor, visitedPixels);    // Right
+    floodFill(image, QPoint(pos.x() - 1, pos.y())    , startColor, newColor, visitedPixels);    // Left
+    floodFill(image, QPoint(pos.x()    , pos.y() + 1), startColor, newColor, visitedPixels);    // Down
+    floodFill(image, QPoint(pos.x()    , pos.y() - 1), startColor, newColor, visitedPixels);    // Up
+    floodFill(image, QPoint(pos.x() + 1, pos.y() + 1), startColor, newColor, visitedPixels);    // Bottom-Right
+    floodFill(image, QPoint(pos.x() - 1, pos.y() - 1), startColor, newColor, visitedPixels);    // Upper-Left
+    floodFill(image, QPoint(pos.x() - 1, pos.y() + 1), startColor, newColor, visitedPixels);    // Bottom-Left
+    floodFill(image, QPoint(pos.x() + 1, pos.y() - 1), startColor, newColor, visitedPixels);    // Upper-Right
 }
