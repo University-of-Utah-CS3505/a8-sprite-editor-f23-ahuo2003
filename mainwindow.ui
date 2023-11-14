@@ -56,6 +56,26 @@
      <string>32x32</string>
     </property>
    </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>209</x>
+      <y>109</y>
+      <width>514</width>
+      <height>514</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <zorder>frame</zorder>
+   <zorder>drawingCanvas</zorder>
+   <zorder>resizeSlider</zorder>
+   <zorder>resizeSliderLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

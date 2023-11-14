@@ -25,16 +25,15 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     this->setStyleSheet(style);
 
     QPixmap whiteCanvas(ui->drawingCanvas->size());
-    QPixmap whiteColorPreview(ui->colorPreview->size());
+    QPixmap blackColorPreview(ui->colorPreview->size());
     QPixmap animationPrev(ui->animationPreview->size());
     animationPrev.fill(Qt::white);
-    whiteColorPreview.fill(Qt::white);
+    blackColorPreview.fill(Qt::black);
     whiteCanvas.fill(Qt::transparent);
 
 
     ui->animationPreview->setPixmap(animationPrev);
-    ui->drawingCanvas->setPixmap(whiteCanvas);
-    ui->colorPreview->setPixmap(whiteColorPreview);
+    ui->colorPreview->setPixmap(blackColorPreview);
 
     // Set Icon for the tools and filters
     SetIcons();
@@ -44,7 +43,6 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     ui->greenSlider->setRange(0,255);
     ui->blueSlider ->setRange(0,255);
 
-    ui->drawingCanvas->setStyleSheet("border: 1px solid black");
     //Canvas-to-Tools connection
     connect(ui->drawingCanvas, &Canvas::mouseEventSignal, &model, &SpriteModel::useTool);
     connect(&model, &SpriteModel::updateFrame, ui->drawingCanvas, &Canvas::redrawCanvas);
@@ -82,9 +80,9 @@ void MainWindow::onSlidersValueChanged()
 void MainWindow::changeColorPreview(int red, int green, int blue)
 {
     QColor myColor = QColor(red, green, blue);
-    QPixmap whiteColorPreview(ui->colorPreview->size());
-    whiteColorPreview.fill(myColor);
-    ui->colorPreview->setPixmap(whiteColorPreview);
+    QPixmap blackColorPreview(ui->colorPreview->size());
+    blackColorPreview.fill(myColor);
+    ui->colorPreview->setPixmap(blackColorPreview);
 }
 
 void MainWindow::pencilToggled()
