@@ -1,7 +1,7 @@
 #include "cursor.h"
 
 Cursor::Cursor() {
-
+    name = "Cursor";
 }
 
 void Cursor::mousePressed()
