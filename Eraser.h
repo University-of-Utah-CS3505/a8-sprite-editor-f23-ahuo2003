@@ -1,15 +1,20 @@
 #ifndef ERASER_H
 #define ERASER_H
 #include "SpriteTool.h"
+#include <QPainter>
 
 class Eraser : public SpriteTool {
 public:
   Eraser();
 
 protected:
-  virtual void mousePressed();
+  virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
   virtual void mouseReleased();
-  virtual void mouseMoved();
+  virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
+
+private:
+  QPainter painter;
+  QPoint startPoint, endPoint;
 };
 
 #endif // ERASER_H
