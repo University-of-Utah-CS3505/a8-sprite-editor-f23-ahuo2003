@@ -71,16 +71,58 @@ void MainWindow::changeColorPreview(int red, int green, int blue)
     ui->colorPreview->setPixmap(whiteColorPreview);
 }
 
+void MainWindow::pencilToggled()
+{
+    ui->pencilTool->setChecked(true);
+    ui->eraserTool->setChecked(false);
+    ui->bucketTool->setChecked(false);
+    ui->eyeDropperTool->setChecked(false);
+}
+
+void MainWindow::eraserToggled(){
+    ui->pencilTool->setChecked(false);
+    ui->eraserTool->setChecked(true);
+    ui->bucketTool->setChecked(false);
+    ui->eyeDropperTool->setChecked(false);
+}
+
+void MainWindow::bucketToggled(){
+    ui->pencilTool->setChecked(false);
+    ui->eraserTool->setChecked(false);
+    ui->bucketTool->setChecked(true);
+    ui->eyeDropperTool->setChecked(false);
+}
+
+void MainWindow::eyeDropperToggled(){
+    ui->pencilTool->setChecked(false);
+    ui->eraserTool->setChecked(false);
+    ui->bucketTool->setChecked(false);
+    ui->eyeDropperTool->setChecked(true);
+}
+
 void MainWindow::SetIcons()
 {
     ui->pencilTool->setIcon(QIcon(":/stylesheet/res/icons/Pencil.png"));
     ui->pencilTool->setIconSize(QSize(20, 20));
+    ui->pencilTool->setCheckable(true);
+    ui->pencilTool->setChecked(true);
+    connect(ui->pencilTool, &QToolButton::clicked, this, &MainWindow::pencilToggled);
+
     ui->eraserTool->setIcon(QIcon(":/stylesheet/res/icons/Eraser.png"));
     ui->eraserTool->setIconSize(QSize(20, 20));
+    ui->eraserTool->setCheckable(true);
+    connect(ui->eraserTool, &QToolButton::clicked, this, &MainWindow::eraserToggled);
+
     ui->eyeDropperTool->setIcon(QIcon(":/stylesheet/res/icons/Eyedropper.png"));
     ui->eyeDropperTool->setIconSize(QSize(20, 20));
+    ui->eyeDropperTool->setCheckable(true);
+    connect(ui->eyeDropperTool, &QToolButton::clicked, this, &MainWindow::eyeDropperToggled);
+
     ui->bucketTool->setIcon(QIcon(":/stylesheet/res/icons/BucketIcon.png"));
     ui->bucketTool->setIconSize(QSize(20, 20));
+    ui->bucketTool->setCheckable(true);
+    connect(ui->bucketTool, &QToolButton::clicked, this, &MainWindow::bucketToggled);
+
     ui->filterRed->setIcon(QIcon(":/stylesheet/res/icons/RedFilter.png"));
     ui->filterRed->setIconSize(QSize(20, 20));
     ui->filterGreen->setIcon(QIcon(":/stylesheet/res/icons/GreenFilter.png"));

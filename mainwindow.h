@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFile>
 #include "SpriteModel.h"
+#include <QButtonGroup>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +23,11 @@ public:
 public slots:
     void onSlidersValueChanged();
     void changeColorPreview(int red, int green, int blue);
+private slots:
+    void pencilToggled();
+    void eraserToggled();
+    void bucketToggled();
+    void eyeDropperToggled();
 signals:
     void changeModelCurrentColor(int red, int green, int blue);
 

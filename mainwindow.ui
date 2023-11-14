@@ -406,6 +406,19 @@
       <string>...</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="canvasSize">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>590</y>
+       <width>101</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set Canvas Size</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
