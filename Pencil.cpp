@@ -3,9 +3,11 @@
 #include <QDebug>
 #include <QPainter>
 
-Pencil::Pencil() : SpriteTool(){}
+Pencil::Pencil() : SpriteTool(){
+    name = "Pencil";
+}
 
-void Pencil::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event) {
+void Pencil::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor) {
     //Start the Painter
     painter.begin(&image);
 
@@ -14,27 +16,23 @@ void Pencil::mousePressed(QImage& image, QColor& currColor, QMouseEvent *event) 
     cursorPen.setColor(currColor);
     painter.setPen(cursorPen);
 
-    //Draw a Pixel
-    painter.drawPoint(event->pos());
-    //Set x1 and y1 to startPoint
-    QPoint point(event->pos().x() / 64, event->pos().y() / 64);
+    //Transform canvas coordinates into grid, and draw.
+    QPoint point = this->mapToImageCoordinates(event->pos(), scaleFactor);
+    painter.drawPoint(point);
     startPoint = point;
-    qDebug() << startPoint;
 }
 
 void Pencil::mouseReleased(){
     painter.end();
 
 }
-void Pencil::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event){
-    //Set x2 and y2 to endPoint
-    QPoint point(event->pos().x() / 64, event->pos().y() / 64);
-    endPoint = point;
+void Pencil::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor){
+    //Get and endPoint for the startPoint recorded in mousePressed, and transform it into grid coordinates.
+    endPoint = this->mapToImageCoordinates(event->pos(), scaleFactor);;
 
-    //Draw a Line between (x1,y1) and (x2,y2)
+    //Draw a Line.
     painter.drawLine(startPoint, endPoint);
 
     //Get a new starting point for next line connection.
-    QPoint point2(event->pos().x() / 64, event->pos().y() / 64);
-    startPoint = point2;
+    startPoint = this->mapToImageCoordinates(event->pos(), scaleFactor);
 }

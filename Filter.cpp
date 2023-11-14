@@ -1,6 +1,8 @@
 #include "Filter.h"
 
-Filter::Filter() : SpriteTool(){}
+Filter::Filter() : SpriteTool(){
+    name = "Filter";
+}
 
 void Filter::mousePressed(){
 

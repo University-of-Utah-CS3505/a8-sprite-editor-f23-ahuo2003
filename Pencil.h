@@ -12,9 +12,9 @@ public:
   Pencil();
 
 protected:
-  virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event);
+  virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
   virtual void mouseReleased();
-  virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event);
+  virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
 
 private:
   QPainter painter;
