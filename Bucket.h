@@ -10,7 +10,7 @@ class Bucket : public SpriteTool {
 public:
   Bucket();
   virtual void floodFill(QImage &image, const QPoint &pos,
-                         const QColor &startColor, const QColor &newColor, QList<QPoint>& visitedPixels);
+                         const QColor &startColor, const QColor &newColor);
 
 protected:
   virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
