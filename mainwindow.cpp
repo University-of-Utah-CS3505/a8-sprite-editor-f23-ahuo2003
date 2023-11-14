@@ -30,14 +30,26 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     ui->colorPreview->setPixmap(whiteColorPreview);
 
     // Set Icon for the tools
-    ui->pencilTool->setIcon(QIcon(":/icons/Pencil.png"));
+    ui->pencilTool->setIcon(QIcon(":/stylesheet/res/icons/Pencil.png"));
     ui->pencilTool->setIconSize(QSize(20, 20));
-    ui->eraserTool->setIcon(QIcon(":/icons/Eraser.png"));
+    ui->eraserTool->setIcon(QIcon(":/stylesheet/res/icons/Eraser.png"));
     ui->eraserTool->setIconSize(QSize(20, 20));
-    ui->eyeDropperTool->setIcon(QIcon(":/icons/Eyedropper.png"));
+    ui->eyeDropperTool->setIcon(QIcon(":/stylesheet/res/icons/Eyedropper.png"));
     ui->eyeDropperTool->setIconSize(QSize(20, 20));
-    ui->bucketTool->setIcon(QIcon(":/icons/BucketIcon.png"));
+    ui->bucketTool->setIcon(QIcon(":/stylesheet/res/icons/BucketIcon.png"));
     ui->bucketTool->setIconSize(QSize(20, 20));
+    ui->filterRed->setIcon(QIcon(":/stylesheet/res/icons/RedFilter.png"));
+    ui->filterRed->setIconSize(QSize(20, 20));
+    ui->filterGreen->setIcon(QIcon(":/stylesheet/res/icons/GreenFilter.png"));
+    ui->filterGreen->setIconSize(QSize(20, 20));
+    ui->filterBlue->setIcon(QIcon(":/stylesheet/res/icons/BlueFilter.png"));
+    ui->filterBlue->setIconSize(QSize(20, 20));
+    ui->filterGrey->setIcon(QIcon(":/stylesheet/res/icons/GreyFilter.png"));
+    ui->filterGrey->setIconSize(QSize(20, 20));
+    ui->playButton->setIcon(QIcon(":/stylesheet/res/icons/Play.png"));
+    ui->playButton->setIconSize(QSize(30, 30));
+    ui->stopButton->setIcon(QIcon(":/stylesheet/res/icons/Pause.png"));
+    ui->stopButton->setIconSize(QSize(30, 30));
 
     // Set sliders Range to match RGB's range of values.
     ui->redSlider  ->setRange(0,255);
@@ -77,3 +89,4 @@ void MainWindow::changeColorPreview(int red, int green, int blue)
     whiteColorPreview.fill(myColor);
     ui->colorPreview->setPixmap(whiteColorPreview);
 }
+

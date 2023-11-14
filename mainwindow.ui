@@ -78,7 +78,7 @@
       <rect>
        <x>20</x>
        <y>120</y>
-       <width>22</width>
+       <width>23</width>
        <height>23</height>
       </rect>
      </property>
@@ -94,7 +94,7 @@
       <rect>
        <x>20</x>
        <y>180</y>
-       <width>22</width>
+       <width>23</width>
        <height>23</height>
       </rect>
      </property>
@@ -110,7 +110,7 @@
       <rect>
        <x>20</x>
        <y>240</y>
-       <width>22</width>
+       <width>23</width>
        <height>23</height>
       </rect>
      </property>
@@ -126,7 +126,7 @@
       <rect>
        <x>20</x>
        <y>300</y>
-       <width>22</width>
+       <width>23</width>
        <height>23</height>
       </rect>
      </property>
@@ -151,6 +151,58 @@
      </property>
      <property name="checkable">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="filterRed">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>450</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="filterGreen">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>490</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="filterGrey">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>570</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="filterBlue">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>530</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -331,10 +383,10 @@
     <widget class="QToolButton" name="playButton">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>70</x>
        <y>180</y>
-       <width>22</width>
-       <height>23</height>
+       <width>30</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
@@ -344,10 +396,10 @@
     <widget class="QToolButton" name="stopButton">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>180</y>
-       <width>22</width>
-       <height>23</height>
+       <width>30</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">

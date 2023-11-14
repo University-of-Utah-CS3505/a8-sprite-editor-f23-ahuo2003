@@ -1,12 +1,15 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file>Eraser.png</file>
-        <file>Eyedropper.png</file>
-        <file>Filter.png</file>
-        <file>Pencil.png</file>
-        <file>BucketIcon.png</file>
-    </qresource>
     <qresource prefix="/stylesheet">
         <file>res/stylesheet/stylesheet.qss</file>
+        <file>res/icons/Play.png</file>
+        <file>res/icons/Pause.png</file>
+        <file>res/icons/BlueFilter.png</file>
+        <file>res/icons/GreenFilter.png</file>
+        <file>res/icons/GreyFilter.png</file>
+        <file>res/icons/RedFilter.png</file>
+        <file>res/icons/BucketIcon.png</file>
+        <file>res/icons/Eraser.png</file>
+        <file>res/icons/Eyedropper.png</file>
+        <file>res/icons/Pencil.png</file>
     </qresource>
 </RCC>
