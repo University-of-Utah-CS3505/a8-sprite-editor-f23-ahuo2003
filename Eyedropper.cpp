@@ -1,5 +1,4 @@
 #include "Eyedropper.h"
-#include <QDebug>
 
 Eyedropper::Eyedropper() : SpriteTool(){
     name = "Eyedropper";

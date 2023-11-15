@@ -1,6 +1,7 @@
 #ifndef EYEDROPPER_H
 #define EYEDROPPER_H
 #include "SpriteTool.h"
+#include <QDebug>
 
 class Eyedropper : public SpriteTool {
 public:
