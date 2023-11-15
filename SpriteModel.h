@@ -2,21 +2,18 @@
 #define SPRITEMODEL_H
 #include "SpriteTool.h"
 #include <QColor>
+#include <QDebug>
+#include <QFile>
+#include <QImage>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QListIterator>
 #include <QMap>
 #include <QMouseEvent>
 #include <QObject>
-#include <QImage>
-#include <QListIterator>
-#include <QSize>
-#include <QObject>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QPixmap>
-#include <QMouseEvent>
-#include <QDebug>
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonArray>
+#include <QSize>
 
 class SpriteModel : public QObject {
   Q_OBJECT
@@ -35,16 +32,6 @@ public slots:
    * @param currentTool
    */
   void useTool(QMouseEvent *event);
-
-  /**
-   * @brief undo reverts to the previous frame version.
-   */
-  void undo();
-
-  /**
-   * @brief redo goes forward to a newer frame version.
-   */
-  void redo();
 
   /**
    * @brief previousFrame shows to the previous frame.
@@ -68,9 +55,11 @@ public slots:
    */
   void rescale(QSize newSize);
 
-  void saveProject(const QString& filePath);
+  void saveProject(const QString &filePath);
 
-  void loadProject(const QString& filePath);
+  void loadProject(const QString &filePath);
+  void addFrame();
+  void removeFrame();
 
 signals:
   /**
@@ -105,7 +94,7 @@ private:
   int scaleFactor;
 
   // Helper functions for saving and loading
-  QJsonObject frameToJson(const QImage& frame);
-  void jsonToFrame(const QJsonObject& frameData, QImage& frame);
+  QJsonObject frameToJson(const QImage &frame);
+  void jsonToFrame(const QJsonObject &frameData, QImage &frame);
 };
 #endif // SPRITEMODEL_H
