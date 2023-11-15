@@ -1,8 +1,6 @@
 #include "Canvas.h"
 #include "qpainter.h"
 #include "qpen.h"
-#include <QDebug>
-#include <iostream>
 
 // General Tool Declaration
 Canvas::Canvas(QWidget *parent) : QLabel(parent) {}

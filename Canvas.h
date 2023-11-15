@@ -2,6 +2,8 @@
 #define CANVAS_H
 #include <QLabel>
 #include <QMouseEvent>
+#include <QDebug>
+#include <iostream>
 
 class Canvas : public QLabel {
   Q_OBJECT
