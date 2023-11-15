@@ -25,7 +25,6 @@ protected:
 
 private:
   int scaleFactor;
-
 };
 
 #endif // CANVAS_H

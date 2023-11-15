@@ -3,7 +3,10 @@
 #include "qpen.h"
 
 // General Tool Declaration
-Canvas::Canvas(QWidget *parent) : QLabel(parent) {}
+Canvas::Canvas(QWidget *parent) : QLabel(parent) {
+    //Base scale factor for 8x8 canvas
+    scaleFactor = 64;
+}
 
 
 void Canvas::updateCanvasScaleFactor(int scaleFactor)
@@ -13,7 +16,6 @@ void Canvas::updateCanvasScaleFactor(int scaleFactor)
 
 void Canvas::redrawCanvas(QImage frame)
 {
-    //Base scale factor for 8x8 canvas
     QPixmap pixmap = QPixmap::fromImage(frame.scaled(frame.width() * scaleFactor, frame.height() * scaleFactor, Qt::KeepAspectRatio, Qt::FastTransformation));
     drawGrid(pixmap);
     setPixmap(pixmap);
