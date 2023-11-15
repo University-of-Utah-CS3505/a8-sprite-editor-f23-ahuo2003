@@ -64,7 +64,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Canvas Size</string>
+     <string>Please choose a size for your new canvas</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -439,7 +439,7 @@
     <widget class="QLabel" name="fpsLabel">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>240</y>
        <width>49</width>
        <height>16</height>

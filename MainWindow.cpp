@@ -10,6 +10,8 @@ MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->fpsSlider->setRange(1,60);
+
     // Default window size of 1280x720 (non-resizable)
     this->setFixedSize(1280,720);
 
