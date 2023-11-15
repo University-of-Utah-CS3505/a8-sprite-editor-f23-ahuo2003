@@ -1,20 +1,9 @@
 #include "Cursor.h"
 
-Cursor::Cursor() {
-    name = "Cursor";
-}
+Cursor::Cursor() { name = "Cursor"; }
 
-void Cursor::mousePressed()
-{
+void Cursor::mousePressed() {}
 
-}
+void Cursor::mouseReleased() {}
 
-void Cursor::mouseReleased()
-{
-
-}
-
-void Cursor::mouseMoved()
-{
-
-}
+void Cursor::mouseMoved() {}

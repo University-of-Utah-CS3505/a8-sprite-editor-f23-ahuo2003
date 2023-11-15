@@ -1,9 +1,8 @@
+#include "Canvas.h"
 #include "MainWindow.h"
 #include <QApplication>
-#include "Canvas.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     SpriteModel model;
     Canvas canvas;

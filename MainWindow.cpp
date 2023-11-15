@@ -1,26 +1,29 @@
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
-#include "SpriteModel.h"
 #include "Canvas.h"
+#include "SpriteModel.h"
+#include "ui_mainwindow.h"
 
-MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
+    : QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    ui->fpsSlider->setRange(1,60);
+    ui->fpsSlider->setRange(1, 60);
 
-    initSizeButtons();
     // Default window size of 1280x720 (non-resizable)
-    this->setFixedSize(1280,720);
+    this->setFixedSize(1280, 720);
 
     // Setup global stylesheet using qss file
     loadStyleSheet();
 
+    // Set visible of size buttons.
+    initSizeButtons();
+
+    // Initialize canvas.
     initPreviews();
 
-    //Draw the canvas
+    // Draw the canvas
     initCanvas();
 
     // Set Icon for the tools and filters
@@ -29,20 +32,20 @@ MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
     // Set sliders Range to match RGB's range of values.
     initSliders();
 
-    //Canvas-to-Tools connection
+    // Canvas-to-Tools connection
     connect(ui->drawingCanvas, &Canvas::mouseEventSignal, &model, &SpriteModel::useTool);
     connect(&model, &SpriteModel::updateFrame, ui->drawingCanvas, &Canvas::redrawCanvas);
     connect(&model, &SpriteModel::updateScaleFactor, ui->drawingCanvas, &Canvas::updateCanvasScaleFactor);
 
-    //Slider Connections
-    connect(ui->redSlider  , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
+    // Slider Connections
+    connect(ui->redSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
-    connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
+    connect(ui->blueSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(this, &MainWindow::changeModelCurrentColor, &model, &SpriteModel::changeColor);
     connect(this, &MainWindow::changeTool, &model, &SpriteModel::changeTool);
     connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeSlidersColor);
 
-    //Dialog Box Connection
+    // Canvas Sizes Options Connection
     connect(ui->showSize, &QPushButton::clicked, this, &MainWindow::showBoxes);
     connect(ui->hideSize, &QPushButton::clicked, this, &MainWindow::hideBoxes);
     connect(ui->four, &QPushButton::clicked, this, &MainWindow::four);
@@ -54,28 +57,24 @@ MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
     connect(&model, &SpriteModel::updateScaleFactor, &canvas, &Canvas::updateCanvasScaleFactor);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::loadStyleSheet()
-{
+void MainWindow::loadStyleSheet() {
     QFile stylesheetFile(":/stylesheet/res/stylesheet/stylesheet.qss");
     stylesheetFile.open(QFile::ReadOnly);
     QString style(stylesheetFile.readAll());
     this->setStyleSheet(style);
 }
 
-void MainWindow::initCanvas()
-{
+void MainWindow::initCanvas() {
     QImage canvas(8, 8, QImage::Format_ARGB32);
     canvas.fill(Qt::transparent);
     ui->drawingCanvas->redrawCanvas(canvas);
 }
 
-void MainWindow::initSizeButtons()
-{
+void MainWindow::initSizeButtons() {
     ui->four->setVisible(false);
     ui->eight->setVisible(false);
     ui->sixteen->setVisible(false);
@@ -83,57 +82,49 @@ void MainWindow::initSizeButtons()
     ui->sixtyFour->setVisible(false);
 }
 
-void MainWindow::initPreviews()
-{
+void MainWindow::initPreviews() {
     QPixmap blackColorPreview(ui->colorPreview->size());
     QPixmap animationPrev(ui->animationPreview->size());
     animationPrev.fill(Qt::white);
     blackColorPreview.fill(Qt::black);
 
-    //Set the preview
+    // Set the preview
     ui->animationPreview->setPixmap(animationPrev);
     ui->colorPreview->setPixmap(blackColorPreview);
 }
 
-void MainWindow::initSliders()
-{
-    ui->redSlider  ->setRange(0,255);
-    ui->greenSlider->setRange(0,255);
-    ui->blueSlider ->setRange(0,255);
+void MainWindow::initSliders() {
+    ui->redSlider->setRange(0, 255);
+    ui->greenSlider->setRange(0, 255);
+    ui->blueSlider->setRange(0, 255);
 }
 
-void MainWindow::four()
-{
-    QSize size (4,4);
+void MainWindow::four() {
+    QSize size(4, 4);
     emit getSize(size);
 }
 
-void MainWindow::eight()
-{
-    QSize size (8,8);
+void MainWindow::eight() {
+    QSize size(8, 8);
     emit getSize(size);
 }
 
-void MainWindow::sixteen()
-{
-    QSize size (16,16);
+void MainWindow::sixteen() {
+    QSize size(16, 16);
     emit getSize(size);
 }
 
-void MainWindow::thirtyTwo()
-{
-    QSize size (32,32);
+void MainWindow::thirtyTwo() {
+    QSize size(32, 32);
     emit getSize(size);
 }
 
-void MainWindow::sixtyFour()
-{
-    QSize size (64,64);
+void MainWindow::sixtyFour() {
+    QSize size(64, 64);
     emit getSize(size);
 }
 
-void MainWindow::showBoxes()
-{
+void MainWindow::showBoxes() {
     ui->four->setVisible(true);
     ui->eight->setVisible(true);
     ui->sixteen->setVisible(true);
@@ -141,8 +132,7 @@ void MainWindow::showBoxes()
     ui->sixtyFour->setVisible(true);
 }
 
-void MainWindow::hideBoxes()
-{
+void MainWindow::hideBoxes() {
     ui->four->setVisible(false);
     ui->eight->setVisible(false);
     ui->sixteen->setVisible(false);
@@ -150,36 +140,31 @@ void MainWindow::hideBoxes()
     ui->sixtyFour->setVisible(false);
 }
 
-void MainWindow::onSlidersValueChanged()
-{
-    int red   = ui->redSlider  ->value();
+void MainWindow::onSlidersValueChanged() {
+    int red = ui->redSlider->value();
     int green = ui->greenSlider->value();
-    int blue  = ui->blueSlider ->value();
+    int blue = ui->blueSlider->value();
     changeColorPreview(red, green, blue);
-    emit changeModelCurrentColor(red,green,blue);
+    emit changeModelCurrentColor(red, green, blue);
 }
 
-void MainWindow::changeColorPreview(int red, int green, int blue)
-{
+void MainWindow::changeColorPreview(int red, int green, int blue) {
     QColor myColor = QColor(red, green, blue);
     QPixmap blackColorPreview(ui->colorPreview->size());
     blackColorPreview.fill(myColor);
     ui->colorPreview->setPixmap(blackColorPreview);
 }
 
-void MainWindow::cursorToggled()
-{
+void MainWindow::cursorToggled() {
     ui->cursorTool->setChecked(true);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(false);
     ui->bucketTool->setChecked(false);
     ui->eyeDropperTool->setChecked(false);
     emit changeTool("Cursor");
-
 }
 
-void MainWindow::pencilToggled()
-{
+void MainWindow::pencilToggled() {
     ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(true);
     ui->eraserTool->setChecked(false);
@@ -188,7 +173,7 @@ void MainWindow::pencilToggled()
     emit changeTool("Pencil");
 }
 
-void MainWindow::eraserToggled(){
+void MainWindow::eraserToggled() {
     ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(true);
@@ -197,7 +182,7 @@ void MainWindow::eraserToggled(){
     emit changeTool("Eraser");
 }
 
-void MainWindow::bucketToggled(){
+void MainWindow::bucketToggled() {
     ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(false);
@@ -206,7 +191,7 @@ void MainWindow::bucketToggled(){
     emit changeTool("Bucket");
 }
 
-void MainWindow::eyeDropperToggled(){
+void MainWindow::eyeDropperToggled() {
     ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(false);
@@ -215,8 +200,7 @@ void MainWindow::eyeDropperToggled(){
     emit changeTool("Eyedropper");
 }
 
-void MainWindow::changeSlidersColor(QColor color)
-{
+void MainWindow::changeSlidersColor(QColor color) {
     QPixmap blackColorPreview(ui->colorPreview->size());
     blackColorPreview.fill(color);
     ui->colorPreview->setPixmap(blackColorPreview);
@@ -225,35 +209,39 @@ void MainWindow::changeSlidersColor(QColor color)
     ui->blueSlider->setValue(color.blue());
 }
 
-void MainWindow::SetIcons()
-{
-    //Cursor tool icon
+void MainWindow::SetIcons() {
+    // Cursor tool icon
     ui->cursorTool->setIcon(QIcon(":/stylesheet/res/icons/Cursor.png"));
     ui->cursorTool->setIconSize(QSize(20, 20));
     ui->cursorTool->setChecked(true);
-    connect(ui->cursorTool, &QToolButton::clicked, this, &MainWindow::cursorToggled);
+    connect(ui->cursorTool, &QToolButton::clicked, this,
+            &MainWindow::cursorToggled);
 
-    //Pencil Tool icon
+    // Pencil Tool icon
     ui->pencilTool->setIcon(QIcon(":/stylesheet/res/icons/Pencil.png"));
     ui->pencilTool->setIconSize(QSize(20, 20));
-    connect(ui->pencilTool, &QToolButton::clicked, this, &MainWindow::pencilToggled);
+    connect(ui->pencilTool, &QToolButton::clicked, this,
+            &MainWindow::pencilToggled);
 
-    //Eraser tool icon
+    // Eraser tool icon
     ui->eraserTool->setIcon(QIcon(":/stylesheet/res/icons/Eraser.png"));
     ui->eraserTool->setIconSize(QSize(20, 20));
-    connect(ui->eraserTool, &QToolButton::clicked, this, &MainWindow::eraserToggled);
+    connect(ui->eraserTool, &QToolButton::clicked, this,
+            &MainWindow::eraserToggled);
 
-    //Eyedropper tool icon
+    // Eyedropper tool icon
     ui->eyeDropperTool->setIcon(QIcon(":/stylesheet/res/icons/Eyedropper.png"));
     ui->eyeDropperTool->setIconSize(QSize(20, 20));
-    connect(ui->eyeDropperTool, &QToolButton::clicked, this, &MainWindow::eyeDropperToggled);
+    connect(ui->eyeDropperTool, &QToolButton::clicked, this,
+            &MainWindow::eyeDropperToggled);
 
-    //Bucket tool Icon
+    // Bucket tool Icon
     ui->bucketTool->setIcon(QIcon(":/stylesheet/res/icons/BucketIcon.png"));
     ui->bucketTool->setIconSize(QSize(20, 20));
-    connect(ui->bucketTool, &QToolButton::clicked, this, &MainWindow::bucketToggled);
+    connect(ui->bucketTool, &QToolButton::clicked, this,
+            &MainWindow::bucketToggled);
 
-    //Filter icons
+    // Filter icons
     ui->filterRed->setIcon(QIcon(":/stylesheet/res/icons/RedFilter.png"));
     ui->filterRed->setIconSize(QSize(20, 20));
     ui->filterGreen->setIcon(QIcon(":/stylesheet/res/icons/GreenFilter.png"));
