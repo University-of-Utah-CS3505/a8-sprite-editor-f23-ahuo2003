@@ -155,29 +155,44 @@ void SpriteModel::removeFrame() {
   emit updateFrame(currFrame);
 }
 
-QJsonObject SpriteModel::frameToJson(const QImage &frame) {
-  QJsonObject frameData;
+QJsonObject SpriteModel::frameToJson(const QList<QImage>& frames)
+{
+    QJsonObject project;
 
-  frameData["width"] = frame.width();
-  frameData["height"] = frame.height();
+    // Add project-specific information to the JSON object
+    project["projectName"] = "Your Project Name";
 
-  // Convert the pixel data to a JSON array
-  QJsonArray pixelData;
-  for (int y = 0; y < frame.height(); ++y) {
-    for (int x = 0; x < frame.width(); ++x) {
-      QRgb pixelColor = frame.pixel(x, y);
-      QJsonObject pixel;
-      pixel["red"] = qRed(pixelColor);
-      pixel["green"] = qGreen(pixelColor);
-      pixel["blue"] = qBlue(pixelColor);
-      pixel["alpha"] = qAlpha(pixelColor);
-      pixelData.append(pixel);
+    // Convert the list of frames to a JSON array
+    QJsonArray framesData;
+    for (const QImage& frame : frames) {
+        QJsonObject frameData;
+        frameData["width"] = frame.width();
+        frameData["height"] = frame.height();
+
+        // Convert the pixel data to a JSON array
+        QJsonArray pixelData;
+        for (int y = 0; y < frame.height(); ++y) {
+            for (int x = 0; x < frame.width(); ++x) {
+                QRgb pixelColor = frame.pixel(x, y);
+                QString pixelValue = QString("%1,%2,%3,%4")
+                                        .arg(qRed(pixelColor))
+                                        .arg(qGreen(pixelColor))
+                                        .arg(qBlue(pixelColor))
+                                        .arg(qAlpha(pixelColor));
+                pixelData.append(pixelValue);
+            }
+        }
+
+        frameData["pixels"] = pixelData;
+        framesData.append(frameData);
     }
-  }
 
-  frameData["pixels"] = pixelData;
+    project["frames"] = framesData;
+    
+    // Assuming 'currentFrame' is a QPixmap representing the current frame
+    project["currFrame"] = frameToJson(currFrame);
 
-  return frameData;
+    return project;
 }
 
 void SpriteModel::jsonToFrame(const QJsonObject &frameData, QImage &frame) {
