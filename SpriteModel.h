@@ -12,7 +12,11 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QPixmap>
-
+#include <QMouseEvent>
+#include <QDebug>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 class SpriteModel : public QObject {
   Q_OBJECT

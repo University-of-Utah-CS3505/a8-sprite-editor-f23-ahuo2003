@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QImage>
+#include <QDebug>
 
 class Bucket : public SpriteTool {
 public:

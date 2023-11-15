@@ -1,6 +1,5 @@
 #include "Bucket.h"
-#include <QImage>
-#include <QDebug>
+
 
 Bucket::Bucket() : SpriteTool(){
     name = "Bucket";
