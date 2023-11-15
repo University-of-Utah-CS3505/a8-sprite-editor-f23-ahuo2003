@@ -29,7 +29,7 @@ public slots:
 
   /**
    * @brief useTool uses the mousePressed method of the tool selected.
-   * @param currentTool
+   * @param *event
    */
   void useTool(QMouseEvent *event);
 
@@ -52,13 +52,21 @@ public slots:
   /**
    * @brief rescale re-scales the image and recalculates the scaleFactor
    * based on the canvas dimensions.
+   * @param newSize: new width and height for the new canvas.
    */
   void rescale(QSize newSize);
 
   void saveProject(const QString &filePath);
-
   void loadProject(const QString &filePath);
+
+  /**
+   * @brief add Frame(s) to create animation.
+   */
   void addFrame();
+
+  /**
+   * @brief delete unwanted Frame(s).
+   */
   void removeFrame();
 
 signals:
@@ -81,6 +89,10 @@ signals:
    */
   void chooseColor(QColor currentColor);
 
+  /**
+   * @brief get the new scale factor for the canvas to redraw.
+   * @param scaleFactor
+   */
   void updateScaleFactor(int scaleFactor);
 
 private:
