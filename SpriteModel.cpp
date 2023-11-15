@@ -4,12 +4,7 @@
 #include "Bucket.h"
 #include "Eyedropper.h"
 #include "Filter.h"
-#include <QMouseEvent>
-#include <QDebug>
-#include "SpriteModel.h"
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonArray>
+#include "Cursor.h"
 
 SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(frames){
     //Empty Map and QList
@@ -17,6 +12,7 @@ SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(fram
     frames.clear();
 
     //Put tools in the Map
+    tools["Cursor"]     = new Cursor();
     tools["Pencil"]     = new Pencil();
     tools["Eraser"]     = new Eraser();
     tools["Bucket"]     = new Bucket();
@@ -26,7 +22,7 @@ SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(fram
     //Set the rest of the variables to default values
     backgroundColor     = Qt::white;
     currColor           = Qt::black;
-    currTool            = tools["Pencil"];
+    currTool            = tools["Cursor"];
     currFrame           = QImage(8, 8, QImage::Format_ARGB32);
     scaleFactor         = 64;
 
