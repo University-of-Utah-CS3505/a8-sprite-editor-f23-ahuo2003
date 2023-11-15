@@ -5,38 +5,62 @@
 #include "ScaleCanvas.h"
 
 
+void MainWindow::loadStyleSheet()
+{
+    QFile stylesheetFile(":/stylesheet/res/stylesheet/stylesheet.qss");
+    stylesheetFile.open(QFile::ReadOnly);
+    QString style(stylesheetFile.readAll());
+    this->setStyleSheet(style);
+}
+
+void MainWindow::initCanvas()
+{
+    QImage canvas(8, 8, QImage::Format_ARGB32);
+    canvas.fill(Qt::transparent);
+    ui->drawingCanvas->redrawCanvas(canvas);
+}
+
+void MainWindow::initPreviews()
+{
+    QPixmap blackColorPreview(ui->colorPreview->size());
+    QPixmap animationPrev(ui->animationPreview->size());
+    animationPrev.fill(Qt::white);
+    blackColorPreview.fill(Qt::black);
+
+    //Set the preview
+    ui->animationPreview->setPixmap(animationPrev);
+    ui->colorPreview->setPixmap(blackColorPreview);
+}
+
+void MainWindow::initSliders()
+{
+    ui->redSlider  ->setRange(0,255);
+    ui->greenSlider->setRange(0,255);
+    ui->blueSlider ->setRange(0,255);
+}
+
 MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     // Default window size of 1280x720 (non-resizable)
     this->setFixedSize(1280,720);
 
     // Setup global stylesheet using qss file
-    QFile stylesheetFile(":/stylesheet/res/stylesheet/stylesheet.qss");
-    stylesheetFile.open(QFile::ReadOnly);
-    QString style(stylesheetFile.readAll());
-    this->setStyleSheet(style);
+    loadStyleSheet();
 
-    QPixmap whiteCanvas(ui->drawingCanvas->size());
-    QPixmap blackColorPreview(ui->colorPreview->size());
-    QPixmap animationPrev(ui->animationPreview->size());
-    animationPrev.fill(Qt::white);
-    blackColorPreview.fill(Qt::black);
-    whiteCanvas.fill(Qt::transparent);
+    initPreviews();
 
-
-    ui->animationPreview->setPixmap(animationPrev);
-    ui->colorPreview->setPixmap(blackColorPreview);
+    //Draw the canvas
+    initCanvas();
 
     // Set Icon for the tools and filters
     SetIcons();
 
     // Set sliders Range to match RGB's range of values.
-    ui->redSlider  ->setRange(0,255);
-    ui->greenSlider->setRange(0,255);
-    ui->blueSlider ->setRange(0,255);
+    initSliders();
 
     //Canvas-to-Tools connection
     connect(ui->drawingCanvas, &Canvas::mouseEventSignal, &model, &SpriteModel::useTool);
@@ -142,33 +166,33 @@ void MainWindow::changeSlidersColor(QColor color)
 
 void MainWindow::SetIcons()
 {
+    //Cursor tool icon
     ui->cursorTool->setIcon(QIcon(":/stylesheet/res/icons/Cursor.png"));
     ui->cursorTool->setIconSize(QSize(20, 20));
+    ui->cursorTool->setChecked(true);
     connect(ui->cursorTool, &QToolButton::clicked, this, &MainWindow::cursorToggled);
 
-
+    //Pencil Tool icon
     ui->pencilTool->setIcon(QIcon(":/stylesheet/res/icons/Pencil.png"));
     ui->pencilTool->setIconSize(QSize(20, 20));
-    ui->pencilTool->setCheckable(true);
-    //ui->pencilTool->setChecked(true);
     connect(ui->pencilTool, &QToolButton::clicked, this, &MainWindow::pencilToggled);
 
+    //Eraser tool icon
     ui->eraserTool->setIcon(QIcon(":/stylesheet/res/icons/Eraser.png"));
     ui->eraserTool->setIconSize(QSize(20, 20));
-    ui->eraserTool->setCheckable(true);
     connect(ui->eraserTool, &QToolButton::clicked, this, &MainWindow::eraserToggled);
 
+    //Eyedropper tool icon
     ui->eyeDropperTool->setIcon(QIcon(":/stylesheet/res/icons/Eyedropper.png"));
     ui->eyeDropperTool->setIconSize(QSize(20, 20));
-    ui->eyeDropperTool->setCheckable(true);
     connect(ui->eyeDropperTool, &QToolButton::clicked, this, &MainWindow::eyeDropperToggled);
 
+    //Bucket tool Icon
     ui->bucketTool->setIcon(QIcon(":/stylesheet/res/icons/BucketIcon.png"));
     ui->bucketTool->setIconSize(QSize(20, 20));
-    ui->bucketTool->setCheckable(true);
     connect(ui->bucketTool, &QToolButton::clicked, this, &MainWindow::bucketToggled);
 
-
+    //Filter icons
     ui->filterRed->setIcon(QIcon(":/stylesheet/res/icons/RedFilter.png"));
     ui->filterRed->setIconSize(QSize(20, 20));
     ui->filterGreen->setIcon(QIcon(":/stylesheet/res/icons/GreenFilter.png"));
