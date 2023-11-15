@@ -1,6 +1,5 @@
 #include "Bucket.h"
 
-
 Bucket::Bucket() : SpriteTool(){
     name = "Bucket";
 }
@@ -20,7 +19,7 @@ void Bucket::mouseReleased() {
     //Do Nothing
 }
 void Bucket::mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor) {
-
+    //Do Nothing
 }
 
 void Bucket::floodFill(QImage& image, const QPoint& pos, const QColor& startColor, const QColor& newColor) {
