@@ -48,7 +48,6 @@ void SpriteModel::useTool(QMouseEvent *event) {
     this->currTool->mouseReleased();
     if (currTool->getName() == "Eyedropper")
       emit chooseColor(currColor);
-    qDebug() << currTool->getName();
   } else if (event->type() == QEvent::MouseMove)
     this->currTool->mouseMoved(currFrame, currColor, event, scaleFactor);
   emit updateFrame(currFrame);
@@ -83,8 +82,8 @@ void SpriteModel::changeColor(int red, int green, int blue) {
 }
 
 void SpriteModel::rescale(QSize newSize) {
-  //Rescale all frames
-  currFrame = QImage(newSize, QImage::Format_ARGB32);
+  //TODO: Rescale all frames
+  currFrame = currFrame.scaled(newSize.width(), newSize.height());
   scaleFactor = 512 / newSize.width();
   emit updateScaleFactor(scaleFactor);
 }
