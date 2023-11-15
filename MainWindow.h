@@ -23,13 +23,16 @@ public:
 public slots:
     void onSlidersValueChanged();
     void changeColorPreview(int red, int green, int blue);
+    void cursorToggled();
     void pencilToggled();
     void eraserToggled();
     void bucketToggled();
     void eyeDropperToggled();
+    void changeSlidersColor(QColor color);
     void setCanvasSize();
 signals:
     void changeModelCurrentColor(int red, int green, int blue);
+    void changeTool(QString toolName);
 
 private:
     Ui::MainWindow *ui;

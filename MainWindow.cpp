@@ -47,6 +47,8 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(ui->blueSlider , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(this, &MainWindow::changeModelCurrentColor, &model, &SpriteModel::changeColor);
+    connect(this, &MainWindow::changeTool, &model, &SpriteModel::changeTool);
+    connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeSlidersColor);
 
     //Dialog Box Connection
     connect(ui->canvasSize, &QPushButton::clicked, this, &MainWindow::setCanvasSize);
@@ -80,41 +82,74 @@ void MainWindow::changeColorPreview(int red, int green, int blue)
     ui->colorPreview->setPixmap(blackColorPreview);
 }
 
+void MainWindow::cursorToggled()
+{
+    ui->cursorTool->setChecked(true);
+    ui->pencilTool->setChecked(false);
+    ui->eraserTool->setChecked(false);
+    ui->bucketTool->setChecked(false);
+    ui->eyeDropperTool->setChecked(false);
+
+}
+
 void MainWindow::pencilToggled()
 {
+    ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(true);
     ui->eraserTool->setChecked(false);
     ui->bucketTool->setChecked(false);
     ui->eyeDropperTool->setChecked(false);
+    emit changeTool("Pencil");
 }
 
 void MainWindow::eraserToggled(){
+    ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(true);
     ui->bucketTool->setChecked(false);
     ui->eyeDropperTool->setChecked(false);
+    emit changeTool("Eraser");
 }
 
 void MainWindow::bucketToggled(){
+    ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(false);
     ui->bucketTool->setChecked(true);
     ui->eyeDropperTool->setChecked(false);
+    emit changeTool("Bucket");
 }
 
 void MainWindow::eyeDropperToggled(){
+    ui->cursorTool->setChecked(false);
     ui->pencilTool->setChecked(false);
     ui->eraserTool->setChecked(false);
     ui->bucketTool->setChecked(false);
     ui->eyeDropperTool->setChecked(true);
+    emit changeTool("Eyedropper");
+}
+
+void MainWindow::changeSlidersColor(QColor color)
+{
+    QPixmap blackColorPreview(ui->colorPreview->size());
+    blackColorPreview.fill(color);
+    ui->colorPreview->setPixmap(blackColorPreview);
+    ui->redSlider->setValue(color.red());
+    ui->greenSlider->setValue(color.green());
+    ui->blueSlider->setValue(color.blue());
 }
 
 void MainWindow::SetIcons()
 {
+    ui->cursorTool->setIcon(QIcon(":/stylesheet/res/icons/Cursor.png"));
+    ui->cursorTool->setIconSize(QSize(20, 20));
+    connect(ui->cursorTool, &QToolButton::clicked, this, &MainWindow::cursorToggled);
+
+
     ui->pencilTool->setIcon(QIcon(":/stylesheet/res/icons/Pencil.png"));
     ui->pencilTool->setIconSize(QSize(20, 20));
     ui->pencilTool->setCheckable(true);
-    ui->pencilTool->setChecked(true);
+    //ui->pencilTool->setChecked(true);
     connect(ui->pencilTool, &QToolButton::clicked, this, &MainWindow::pencilToggled);
 
     ui->eraserTool->setIcon(QIcon(":/stylesheet/res/icons/Eraser.png"));
@@ -131,6 +166,7 @@ void MainWindow::SetIcons()
     ui->bucketTool->setIconSize(QSize(20, 20));
     ui->bucketTool->setCheckable(true);
     connect(ui->bucketTool, &QToolButton::clicked, this, &MainWindow::bucketToggled);
+
 
     ui->filterRed->setIcon(QIcon(":/stylesheet/res/icons/RedFilter.png"));
     ui->filterRed->setIconSize(QSize(20, 20));
