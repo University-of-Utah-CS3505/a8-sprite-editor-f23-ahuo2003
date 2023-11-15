@@ -24,6 +24,8 @@ public:
      */
     void SetIcons();
 
+    void initSizeButtons();
+
 public slots:
     /**
      * @brief onSlidersValueChanged handles the event when one of the RGB sliders is changed
@@ -70,11 +72,6 @@ public slots:
     void changeSlidersColor(QColor color);
 
     /**
-     * @brief setCanvasSize change the size of the drawing canvas
-     */
-    void setCanvasSize();
-
-    /**
      * @brief four change the size of the canvas to four
      */
     void four();
@@ -97,6 +94,18 @@ public slots:
      * @brief sixtyFour change the size of the canvas to sixtyfour
      */
     void sixtyFour();
+
+    /**
+     * @brief show boxes of available canvas sizes.
+     */
+    void showBoxes();
+
+    /**
+     * @brief hide boxes of available canvas sizes.
+     */
+    void hideBoxes();
+
+
 signals:
     /**
      * @brief changeModelCurrentColor change the current selected color

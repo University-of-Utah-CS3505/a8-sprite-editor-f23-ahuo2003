@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "SpriteModel.h"
 #include "Canvas.h"
-#include "ScaleCanvas.h"
 
 MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +11,7 @@ MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
 
     ui->fpsSlider->setRange(1,60);
 
+    initSizeButtons();
     // Default window size of 1280x720 (non-resizable)
     this->setFixedSize(1280,720);
 
@@ -43,7 +43,8 @@ MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
     connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeSlidersColor);
 
     //Dialog Box Connection
-    connect(ui->canvasSize, &QPushButton::clicked, this, &MainWindow::setCanvasSize);
+    connect(ui->showSize, &QPushButton::clicked, this, &MainWindow::showBoxes);
+    connect(ui->hideSize, &QPushButton::clicked, this, &MainWindow::hideBoxes);
     connect(ui->four, &QPushButton::clicked, this, &MainWindow::four);
     connect(ui->eight, &QPushButton::clicked, this, &MainWindow::eight);
     connect(ui->sixteen, &QPushButton::clicked, this, &MainWindow::sixteen);
@@ -73,6 +74,15 @@ void MainWindow::initCanvas()
     ui->drawingCanvas->redrawCanvas(canvas);
 }
 
+void MainWindow::initSizeButtons()
+{
+    ui->four->setVisible(false);
+    ui->eight->setVisible(false);
+    ui->sixteen->setVisible(false);
+    ui->thirtyTwo->setVisible(false);
+    ui->sixtyFour->setVisible(false);
+}
+
 void MainWindow::initPreviews()
 {
     QPixmap blackColorPreview(ui->colorPreview->size());
@@ -90,12 +100,6 @@ void MainWindow::initSliders()
     ui->redSlider  ->setRange(0,255);
     ui->greenSlider->setRange(0,255);
     ui->blueSlider ->setRange(0,255);
-}
-
-void MainWindow::setCanvasSize(){
-    ScaleCanvas canvasSize;
-    canvasSize.setModal(true);
-    canvasSize.exec();
 }
 
 void MainWindow::four()
@@ -126,6 +130,24 @@ void MainWindow::sixtyFour()
 {
     QSize size (64,64);
     emit getSize(size);
+}
+
+void MainWindow::showBoxes()
+{
+    ui->four->setVisible(true);
+    ui->eight->setVisible(true);
+    ui->sixteen->setVisible(true);
+    ui->thirtyTwo->setVisible(true);
+    ui->sixtyFour->setVisible(true);
+}
+
+void MainWindow::hideBoxes()
+{
+    ui->four->setVisible(false);
+    ui->eight->setVisible(false);
+    ui->sixteen->setVisible(false);
+    ui->thirtyTwo->setVisible(false);
+    ui->sixtyFour->setVisible(false);
 }
 
 void MainWindow::onSlidersValueChanged()
