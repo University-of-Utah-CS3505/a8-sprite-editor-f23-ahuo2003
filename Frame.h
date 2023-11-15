@@ -4,16 +4,15 @@
 #include <QList>
 #include <QListIterator>
 
-
-class Frame
-{
+class Frame {
 public:
     Frame(QSize size);
     QImage getCurrentFrame() const;
-    void nextVersion(QImage& newVersion);
+    void nextVersion(QImage &newVersion);
     void previousVersion();
+
 protected:
-    void addNewVersion(QImage& newVersion);
+    void addNewVersion(QImage &newVersion);
     void removeOldestVersion();
 
 private:

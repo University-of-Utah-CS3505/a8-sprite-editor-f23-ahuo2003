@@ -4,12 +4,12 @@
 
 class Filter : public SpriteTool {
 public:
-  Filter();
+    Filter();
 
 protected:
-  virtual void mousePressed();
-  virtual void mouseReleased();
-  virtual void mouseMoved();
+    virtual void mousePressed();
+    virtual void mouseReleased();
+    virtual void mouseMoved();
 };
 
 #endif // FILTER_H

@@ -5,12 +5,12 @@
 
 class Cursor : public SpriteTool {
 public:
-  Cursor();
+    Cursor();
 
 protected:
-  virtual void mousePressed();
-  virtual void mouseReleased();
-  virtual void mouseMoved();
+    virtual void mousePressed();
+    virtual void mouseReleased();
+    virtual void mouseMoved();
 };
 
 #endif // CURSOR_H

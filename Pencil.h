@@ -1,27 +1,25 @@
 #ifndef PENCIL_H
 #define PENCIL_H
 #include "SpriteTool.h"
-#include <QImage>
 #include <QColor>
+#include <QDebug>
+#include <QImage>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPoint>
-#include <QMouseEvent>
-#include <QDebug>
-#include <QPainter>
 
 class Pencil : public SpriteTool {
 public:
-  Pencil();
+    Pencil();
 
 protected:
-  virtual void mousePressed(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
-  virtual void mouseReleased();
-  virtual void mouseMoved(QImage& image, QColor& currColor, QMouseEvent *event, int scaleFactor);
+    virtual void mousePressed(QImage &image, QColor &currColor, QMouseEvent *event, int scaleFactor);
+    virtual void mouseReleased();
+    virtual void mouseMoved(QImage &image, QColor &currColor, QMouseEvent *event, int scaleFactor);
 
 private:
-  QPainter painter;
-  QPoint startPoint, endPoint;
+    QPainter painter;
+    QPoint startPoint, endPoint;
 };
 
 #endif // PENCIL_H
