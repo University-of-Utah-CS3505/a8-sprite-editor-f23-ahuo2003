@@ -134,11 +134,19 @@ void SpriteModel::loadProject(const QString &filePath) {
   // Parse the JSON document and retrieve project information
   QJsonObject project = jsonDoc.object();
 
-  // Retrieve the frame data
-  QJsonObject frameData = project["frame"].toObject();
+  // Retrieve frames data and currFrame data
+  QList<QImage> loadedFrames;
+  jsonToFrame(project, loadedFrames);
 
-  // Assuming 'currentFrame' is a QPixmap representing the current frame
-  jsonToFrame(frameData, currFrame);
+  // Set currFrame to the first frame if there is at least one frame
+  if (!loadedFrames.isEmpty()) {
+    currFrame = loadedFrames.first();
+    // You may want to handle the case where currFrame is part of the loaded frames differently
+    loadedFrames.removeFirst();
+  }
+
+  // Update the frames QList with the loaded frames
+  frames = loadedFrames;
 
   // emit updateFrame(); // Optional: emit a signal after loading
 }
@@ -195,27 +203,47 @@ QJsonObject SpriteModel::frameToJson(const QList<QImage>& frames)
     return project;
 }
 
-void SpriteModel::jsonToFrame(const QJsonObject &frameData, QImage &frame) {
-  // Retrieve width and height
-  int width = frameData["width"].toInt();
-  int height = frameData["height"].toInt();
+void SpriteModel::jsonToFrame(const QJsonObject& project, QList<QImage>& frames)
+{
+    // Retrieve the frames data array
+    QJsonArray framesData = project["frames"].toArray();
 
-  // Create a new frame with the specified dimensions
-  frame = QImage(width, height, QImage::Format_ARGB32);
+    // Clear the existing frames QList
+    frames.clear();
 
-  // Retrieve pixel data
-  QJsonArray pixelData = frameData["pixels"].toArray();
-  int index = 0;
-  for (int y = 0; y < frame.height(); ++y) {
-    for (int x = 0; x < frame.width(); ++x) {
-      QJsonObject pixel = pixelData[index++].toObject();
+    // Loop through each frame data
+    for (const QJsonValue& frameValue : framesData) {
+        QJsonObject frameData = frameValue.toObject();
 
-      int red = pixel["red"].toInt();
-      int green = pixel["green"].toInt();
-      int blue = pixel["blue"].toInt();
-      int alpha = pixel["alpha"].toInt();
+        // Retrieve width and height
+        int width = frameData["width"].toInt();
+        int height = frameData["height"].toInt();
 
-      frame.setPixelColor(x, y, QColor(red, green, blue, alpha));
+        // Create a new frame with the specified dimensions
+        QImage frame = QImage(width, height, QImage::Format_ARGB32);
+
+        // Retrieve pixel data
+        QJsonArray pixelData = frameData["pixels"].toArray();
+        int index = 0;
+        for (int y = 0; y < frame.height(); ++y) {
+            for (int x = 0; x < frame.width(); ++x) {
+                QJsonObject pixel = pixelData[index++].toObject();
+
+                int red = pixel["red"].toInt();
+                int green = pixel["green"].toInt();
+                int blue = pixel["blue"].toInt();
+                int alpha = pixel["alpha"].toInt();
+
+                frame.setPixelColor(x, y, QColor(red, green, blue, alpha));
+            }
+        }
+
+        // Add the frame to the frames QList
+        frames.append(frame);
     }
-  }
+
+    // Set currFrame to the first frame if there is at least one frame
+    if (!frames.isEmpty()) {
+        QJsonObject currFrameData = project["currFrame"].toObject();
+    }
 }
