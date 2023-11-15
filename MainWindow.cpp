@@ -4,42 +4,7 @@
 #include "Canvas.h"
 #include "ScaleCanvas.h"
 
-
-void MainWindow::loadStyleSheet()
-{
-    QFile stylesheetFile(":/stylesheet/res/stylesheet/stylesheet.qss");
-    stylesheetFile.open(QFile::ReadOnly);
-    QString style(stylesheetFile.readAll());
-    this->setStyleSheet(style);
-}
-
-void MainWindow::initCanvas()
-{
-    QImage canvas(8, 8, QImage::Format_ARGB32);
-    canvas.fill(Qt::transparent);
-    ui->drawingCanvas->redrawCanvas(canvas);
-}
-
-void MainWindow::initPreviews()
-{
-    QPixmap blackColorPreview(ui->colorPreview->size());
-    QPixmap animationPrev(ui->animationPreview->size());
-    animationPrev.fill(Qt::white);
-    blackColorPreview.fill(Qt::black);
-
-    //Set the preview
-    ui->animationPreview->setPixmap(animationPrev);
-    ui->colorPreview->setPixmap(blackColorPreview);
-}
-
-void MainWindow::initSliders()
-{
-    ui->redSlider  ->setRange(0,255);
-    ui->greenSlider->setRange(0,255);
-    ui->blueSlider ->setRange(0,255);
-}
-
-MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
+MainWindow::MainWindow(SpriteModel& model, Canvas& canvas, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -77,6 +42,13 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
 
     //Dialog Box Connection
     connect(ui->canvasSize, &QPushButton::clicked, this, &MainWindow::setCanvasSize);
+    connect(ui->four, &QPushButton::clicked, this, &MainWindow::four);
+    connect(ui->eight, &QPushButton::clicked, this, &MainWindow::eight);
+    connect(ui->sixteen, &QPushButton::clicked, this, &MainWindow::sixteen);
+    connect(ui->thirtyTwo, &QPushButton::clicked, this, &MainWindow::thirtyTwo);
+    connect(ui->sixtyFour, &QPushButton::clicked, this, &MainWindow::sixtyFour);
+    connect(this, &MainWindow::getSize, &model, &SpriteModel::rescale);
+    connect(&model, &SpriteModel::updateScaleFactor, &canvas, &Canvas::updateCanvasScaleFactor);
 }
 
 MainWindow::~MainWindow()
@@ -84,10 +56,74 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::loadStyleSheet()
+{
+    QFile stylesheetFile(":/stylesheet/res/stylesheet/stylesheet.qss");
+    stylesheetFile.open(QFile::ReadOnly);
+    QString style(stylesheetFile.readAll());
+    this->setStyleSheet(style);
+}
+
+void MainWindow::initCanvas()
+{
+    QImage canvas(8, 8, QImage::Format_ARGB32);
+    canvas.fill(Qt::transparent);
+    ui->drawingCanvas->redrawCanvas(canvas);
+}
+
+void MainWindow::initPreviews()
+{
+    QPixmap blackColorPreview(ui->colorPreview->size());
+    QPixmap animationPrev(ui->animationPreview->size());
+    animationPrev.fill(Qt::white);
+    blackColorPreview.fill(Qt::black);
+
+    //Set the preview
+    ui->animationPreview->setPixmap(animationPrev);
+    ui->colorPreview->setPixmap(blackColorPreview);
+}
+
+void MainWindow::initSliders()
+{
+    ui->redSlider  ->setRange(0,255);
+    ui->greenSlider->setRange(0,255);
+    ui->blueSlider ->setRange(0,255);
+}
+
 void MainWindow::setCanvasSize(){
     ScaleCanvas canvasSize;
     canvasSize.setModal(true);
     canvasSize.exec();
+}
+
+void MainWindow::four()
+{
+    QSize size (4,4);
+    emit getSize(size);
+}
+
+void MainWindow::eight()
+{
+    QSize size (8,8);
+    emit getSize(size);
+}
+
+void MainWindow::sixteen()
+{
+    QSize size (16,16);
+    emit getSize(size);
+}
+
+void MainWindow::thirtyTwo()
+{
+    QSize size (32,32);
+    emit getSize(size);
+}
+
+void MainWindow::sixtyFour()
+{
+    QSize size (64,64);
+    emit getSize(size);
 }
 
 void MainWindow::onSlidersValueChanged()
