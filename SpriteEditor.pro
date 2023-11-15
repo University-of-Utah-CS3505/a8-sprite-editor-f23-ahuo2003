@@ -18,7 +18,6 @@ SOURCES += \
     Frame.cpp \
     MainWindow.cpp \
     Pencil.cpp \
-    ScaleCanvas.cpp \
     SpriteModel.cpp \
     SpriteTool.cpp \
     main.cpp
@@ -33,13 +32,11 @@ HEADERS += \
     Frame.h \
     MainWindow.h \
     Pencil.h \
-    ScaleCanvas.h \
     SpriteModel.h \
     SpriteTool.h
 
 FORMS += \
-    MainWindow.ui \
-    ScaleCanvas.ui
+    MainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
