@@ -1,7 +1,4 @@
 #include "Pencil.h"
-#include <QMouseEvent>
-#include <QDebug>
-#include <QPainter>
 
 Pencil::Pencil() : SpriteTool(){
     name = "Pencil";

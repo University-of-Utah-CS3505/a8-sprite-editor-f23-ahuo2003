@@ -6,6 +6,9 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPoint>
+#include <QMouseEvent>
+#include <QDebug>
+#include <QPainter>
 
 class Pencil : public SpriteTool {
 public:
