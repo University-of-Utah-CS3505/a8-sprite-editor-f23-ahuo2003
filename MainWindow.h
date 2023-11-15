@@ -19,8 +19,6 @@ public:
     ~MainWindow();
     
     void SetIcons();
-    void saveProject(const QString& filePath);
-    void loadProject(const QString& filePath);
     
 public slots:
     void onSlidersValueChanged();

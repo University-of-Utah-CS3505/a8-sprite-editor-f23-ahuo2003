@@ -8,6 +8,11 @@
 #include <QImage>
 #include <QListIterator>
 #include <QSize>
+#include <QObject>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QPixmap>
+
 
 class SpriteModel : public QObject {
   Q_OBJECT
@@ -59,6 +64,10 @@ public slots:
    */
   void rescale(QSize newSize);
 
+  void saveProject(const QString& filePath);
+
+  void loadProject(const QString& filePath);
+
 signals:
   /**
    * @brief updateFrame tells the view to update the drawing in the current
@@ -90,5 +99,9 @@ private:
   QList<QImage> frames;
   QListIterator<QImage> framesIterator;
   int scaleFactor;
+
+  // Helper functions for saving and loading
+  QJsonObject frameToJson(const QImage& frame);
+  void jsonToFrame(const QJsonObject& frameData, QImage& frame);
 };
 #endif // SPRITEMODEL_H

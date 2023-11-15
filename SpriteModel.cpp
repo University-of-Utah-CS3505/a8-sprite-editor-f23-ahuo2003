@@ -6,6 +6,10 @@
 #include "Filter.h"
 #include <QMouseEvent>
 #include <QDebug>
+#include "SpriteModel.h"
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(frames){
     //Empty Map and QList
@@ -100,4 +104,115 @@ void SpriteModel::rescale(QSize newSize){
     currFrame = currFrame.scaled(newSize, Qt::KeepAspectRatio);
     scaleFactor = newSize.width() * newSize.height();
     emit updateScaleFactor(scaleFactor);
+}
+
+
+void SpriteModel::saveProject(const QString& filePath)
+{
+    // Ensure the filePath has the .ssp extension
+    QString savePath = filePath;
+    if (!savePath.endsWith(".ssp", Qt::CaseInsensitive))
+        savePath += ".ssp";
+
+    QJsonObject project;
+
+    // Add project-specific information to the JSON object
+    project["projectName"] = "Your Project Name";
+
+    // Assuming 'currentFrame' is a QPixmap representing the current frame
+    project["frame"] = frameToJson(currFrame);
+
+    // Convert the JSON object to a JSON document
+    QJsonDocument jsonDoc(project);
+
+    // Save the JSON document to a file with .ssp extension
+    QFile saveFile(savePath);
+    if (saveFile.open(QFile::WriteOnly | QFile::Text)) {
+        saveFile.write(jsonDoc.toJson());
+        saveFile.close();
+    } else {
+        qDebug() << "Failed to save project.";
+    }
+}
+
+
+void SpriteModel::loadProject(const QString& filePath)
+{
+    // Load the JSON document from the file
+    QFile loadFile(filePath);
+    if (!loadFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Could not open the project file.";
+        return;
+    }
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(loadFile.readAll());
+    loadFile.close();
+
+    if (jsonDoc.isNull()) {
+        qDebug() << "Failed to parse the project file.";
+        return;
+    }
+
+    // Parse the JSON document and retrieve project information
+    QJsonObject project = jsonDoc.object();
+
+    // Retrieve the frame data
+    QJsonObject frameData = project["frame"].toObject();
+
+    // Assuming 'currentFrame' is a QPixmap representing the current frame
+    jsonToFrame(frameData, currFrame);
+
+    // emit updateFrame(); // Optional: emit a signal after loading
+}
+
+QJsonObject SpriteModel::frameToJson(const QImage& frame)
+{
+    QJsonObject frameData;
+
+    frameData["width"] = frame.width();
+    frameData["height"] = frame.height();
+
+    // Convert the pixel data to a JSON array
+    QJsonArray pixelData;
+    for (int y = 0; y < frame.height(); ++y) {
+        for (int x = 0; x < frame.width(); ++x) {
+            QRgb pixelColor = frame.pixel(x, y);
+            QJsonObject pixel;
+            pixel["red"] = qRed(pixelColor);
+            pixel["green"] = qGreen(pixelColor);
+            pixel["blue"] = qBlue(pixelColor);
+            pixel["alpha"] = qAlpha(pixelColor);
+            pixelData.append(pixel);
+        }
+    }
+
+    frameData["pixels"] = pixelData;
+
+    return frameData;
+}
+
+void SpriteModel::jsonToFrame(const QJsonObject& frameData, QImage& frame)
+{
+    // Retrieve width and height
+    int width = frameData["width"].toInt();
+    int height = frameData["height"].toInt();
+
+    // Create a new frame with the specified dimensions
+    frame = QImage(width, height, QImage::Format_ARGB32);
+
+    // Retrieve pixel data
+    QJsonArray pixelData = frameData["pixels"].toArray();
+    int index = 0;
+    for (int y = 0; y < frame.height(); ++y) {
+        for (int x = 0; x < frame.width(); ++x) {
+            QJsonObject pixel = pixelData[index++].toObject();
+
+            int red = pixel["red"].toInt();
+            int green = pixel["green"].toInt();
+            int blue = pixel["blue"].toInt();
+            int alpha = pixel["alpha"].toInt();
+
+            frame.setPixelColor(x, y, QColor(red, green, blue, alpha));
+        }
+    }
 }
