@@ -89,6 +89,7 @@ void MainWindow::cursorToggled()
     ui->eraserTool->setChecked(false);
     ui->bucketTool->setChecked(false);
     ui->eyeDropperTool->setChecked(false);
+    emit changeTool("Cursor");
 
 }
 

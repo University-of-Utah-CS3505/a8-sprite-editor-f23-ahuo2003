@@ -22,7 +22,7 @@ SpriteModel::SpriteModel(QObject *parent) : QObject(parent), framesIterator(fram
     //Set the rest of the variables to default values
     backgroundColor     = Qt::white;
     currColor           = Qt::black;
-    currTool            = tools["Cursor"];
+    currTool            = NULL;
     currFrame           = QImage(8, 8, QImage::Format_ARGB32);
     scaleFactor         = 64;
 
