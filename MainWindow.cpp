@@ -65,6 +65,7 @@ MainWindow::MainWindow(SpriteModel& model, QWidget *parent)
     //Canvas-to-Tools connection
     connect(ui->drawingCanvas, &Canvas::mouseEventSignal, &model, &SpriteModel::useTool);
     connect(&model, &SpriteModel::updateFrame, ui->drawingCanvas, &Canvas::redrawCanvas);
+    connect(ui->drawingCanvas, &Canvas::updateCanvasScaleFactor, &model, &SpriteModel::updateScaleFactor);
 
     //Slider Connections
     connect(ui->redSlider  , &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
