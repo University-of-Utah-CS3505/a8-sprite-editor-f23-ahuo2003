@@ -94,7 +94,7 @@ private:
   int scaleFactor;
 
   // Helper functions for saving and loading
-  QJsonObject frameToJson(const QImage &frame);
-  void jsonToFrame(const QJsonObject &frameData, QImage &frame);
+  QJsonObject frameToJson(const QList<QImage>& frames);
+  void jsonToFrame(const QJsonObject& project, QList<QImage>& frames);
 };
 #endif // SPRITEMODEL_H
