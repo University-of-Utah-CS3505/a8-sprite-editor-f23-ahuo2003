@@ -56,7 +56,6 @@ void SpriteModel::useTool(QMouseEvent *event) {
 }
 
 void SpriteModel::previousFrame() {
-  qDebug() << framesIterator;
   if (framesIterator > 0) {
     // TODO: Emit signal to enable PREVIOUS frame button
     framesIterator--;
@@ -176,7 +175,6 @@ void SpriteModel::greyFilter() {
 void SpriteModel::onPerformSave(QString fileName) {
   QFile saveFile(fileName);
   if (!saveFile.open(QIODevice::WriteOnly)) {
-    qDebug() << "Failed saving";
     return;
   }
 
