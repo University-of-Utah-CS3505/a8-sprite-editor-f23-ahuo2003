@@ -13,7 +13,7 @@ public:
 signals:
     void mouseEventSignal(QMouseEvent *event);
 public slots:
-    void redrawCanvas(QImage frame);
+    virtual void redrawCanvas(QImage frame);
     void updateCanvasScaleFactor(int scaleFactor);
 
 protected:
