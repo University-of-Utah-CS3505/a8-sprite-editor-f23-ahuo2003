@@ -60,11 +60,7 @@ public slots:
    * selected
    */
   void eyeDropperToggled();
-<<<<<<< Updated upstream
 
-=======
-
-<<<<<<< HEAD
     /**
      * @brief applyRedFilter sends the signal to apply the red filter
      */
@@ -89,16 +85,6 @@ public slots:
      * @brief saveToggled TODO
      */
     void saveToggled();
-=======
->>>>>>> Stashed changes
-  /**
-   * @brief saveToggled TODO
-   */
-  void saveToggled();
-<<<<<<< Updated upstream
-=======
->>>>>>> e8b4b5824169dd7952d74dfa0e0311e07f09eeb3
->>>>>>> Stashed changes
 
   /**
    * @brief loadToggled TODO
@@ -190,11 +176,6 @@ signals:
    * @param size the new size
    */
   void getSize(QSize size);
-<<<<<<< Updated upstream
-
-=======
-
-<<<<<<< HEAD
     /**
      * @brief red send the red filter signal
      */
@@ -220,17 +201,6 @@ signals:
      * @param fps
      */
     void changeFPS(int fps);
-=======
->>>>>>> Stashed changes
-  /**
-   * @brief changeFPS
-   * @param fps
-   */
-  void changeFPS(int fps);
-<<<<<<< Updated upstream
-=======
->>>>>>> e8b4b5824169dd7952d74dfa0e0311e07f09eeb3
->>>>>>> Stashed changes
 
 private:
   // The UI for this MainWindow

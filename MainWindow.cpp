@@ -73,14 +73,14 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     connect(ui->fpsSlider, &QSlider::valueChanged, this, [this](int value) {ui->fpsLabel->setText(QString::number(value) + " FPS");});
 
     //Filter Conenctions
-    connect(ui->filterRed, &QPushButton::clicked, &model, &SpriteModel::redFilter);
-    connect(ui->filterRed, &QPushButton::clicked, this, &MainWindow::cursorToggled);
-    connect(ui->filterBlue, &QPushButton::clicked, &model, &SpriteModel::blueFilter);
-    connect(ui->filterBlue, &QPushButton::clicked, this, &MainWindow::cursorToggled);
-    connect(ui->filterGreen, &QPushButton::clicked, &model, &SpriteModel::greenFilter);
-    connect(ui->filterGreen, &QPushButton::clicked, this, &MainWindow::cursorToggled);
-    connect(ui->filterGrey, &QPushButton::clicked, &model, &SpriteModel::greyFilter);
-    connect(ui->filterGrey, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+//    connect(ui->filterRed, &QPushButton::clicked, &model, &SpriteModel::redFilter);
+//    connect(ui->filterRed, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+//    connect(ui->filterBlue, &QPushButton::clicked, &model, &SpriteModel::blueFilter);
+//    connect(ui->filterBlue, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+//    connect(ui->filterGreen, &QPushButton::clicked, &model, &SpriteModel::greenFilter);
+//    connect(ui->filterGreen, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+//    connect(ui->filterGrey, &QPushButton::clicked, &model, &SpriteModel::greyFilter);
+//    connect(ui->filterGrey, &QPushButton::clicked, this, &MainWindow::cursorToggled);
 }
 
 MainWindow::~MainWindow() {
