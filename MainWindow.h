@@ -70,8 +70,25 @@ public slots:
    */
     void eyeDropperToggled();
 
+    /**
+     * @brief saveToggled TODO
+     */
     void saveToggled();
+
+    /**
+     * @brief loadToggled TODO
+     */
     void loadToggled();
+
+    /**
+     * @brief disablePreviousButton TODO
+     */
+    void disablePreviousButton();
+
+    /**
+     * @brief disableNextButton TODO
+     */
+    void disableNextButton();
 
     /**
    * @brief changeSlidersColor handles the event for changing the color sliders

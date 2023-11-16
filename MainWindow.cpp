@@ -60,6 +60,9 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     connect(ui->sixtyFour, &QPushButton::clicked, this, &MainWindow::sixtyFour);
     connect(this, &MainWindow::getSize, &model, &SpriteModel::rescale);
     connect(&model, &SpriteModel::updateScaleFactor, &canvas, &Canvas::updateCanvasScaleFactor);
+
+    //Sprite Player Connections
+    connect(ui->playButton, &QPushButton::clicked, &model, &SpriteModel::startSpritePlayer);
 }
 
 MainWindow::~MainWindow() {
@@ -270,8 +273,23 @@ void MainWindow::SetIcons() {
     ui->filterBlue->setIconSize(QSize(20, 20));
     ui->filterGrey->setIcon(QIcon(":/stylesheet/res/icons/GreyFilter.png"));
     ui->filterGrey->setIconSize(QSize(20, 20));
+
+    // SpritePlayer icons
     ui->playButton->setIcon(QIcon(":/stylesheet/res/icons/Play.png"));
     ui->playButton->setIconSize(QSize(30, 30));
-    ui->stopButton->setIcon(QIcon(":/stylesheet/res/icons/Pause.png"));
-    ui->stopButton->setIconSize(QSize(30, 30));
+    ui->previousButton->setIcon(QIcon(":/stylesheet/res/icons/previousButton.png"));
+    ui->previousButton->setIconSize(QSize(30, 30));
+    ui->nextButton->setIcon(QIcon(":/stylesheet/res/icons/nextButton.png"));
+    ui->nextButton->setIconSize(QSize(30, 30));
+
+}
+
+void MainWindow::disablePreviousButton()
+{
+    ui->previousButton->setEnabled(false);
+}
+
+void MainWindow::disableNextButton()
+{
+    ui->nextButton->setEnabled(false);
 }
