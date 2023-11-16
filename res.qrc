@@ -12,5 +12,7 @@
         <file>res/icons/Eyedropper.png</file>
         <file>res/icons/Pencil.png</file>
         <file>res/icons/Cursor.png</file>
+        <file>res/icons/previousButton.png</file>
+        <file>res/icons/nextButton.png</file>
     </qresource>
 </RCC>
