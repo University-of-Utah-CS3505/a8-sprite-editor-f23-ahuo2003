@@ -62,7 +62,13 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     connect(&model, &SpriteModel::updateScaleFactor, &canvas, &Canvas::updateCanvasScaleFactor);
 
     //Sprite Player Connections
-    connect(ui->playButton, &QPushButton::clicked, &model, &SpriteModel::startSpritePlayer);
+    connect(ui->nextButton, &QToolButton::clicked, &model, &SpriteModel::nextFrame);
+    connect(ui->previousButton, &QToolButton::clicked, &model, &SpriteModel::previousFrame);
+    connect(ui->playButton, &QToolButton::clicked, &model, &SpriteModel::startSpritePlayer);
+    connect(&model, &SpriteModel::updateSpritePlayer, ui->animationPreview, &SpritePlayer::redrawCanvas);
+    connect(ui->addFrameButton, &QPushButton::clicked, &model, &SpriteModel::addFrame);
+    connect(ui->deleteFrameButton, &QPushButton::clicked, &model, &SpriteModel::removeFrame);
+
 }
 
 MainWindow::~MainWindow() {

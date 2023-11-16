@@ -395,7 +395,7 @@
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="animationPreview">
+    <widget class="SpritePlayer" name="animationPreview">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -575,6 +575,11 @@
    <class>Canvas</class>
    <extends>QLabel</extends>
    <header>Canvas.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SpritePlayer</class>
+   <extends>QLabel</extends>
+   <header>SpritePlayer.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
