@@ -19,6 +19,7 @@ SOURCES += \
     MainWindow.cpp \
     Pencil.cpp \
     SpriteModel.cpp \
+    SpritePlayer.cpp \
     SpriteTool.cpp \
     main.cpp
 
@@ -33,6 +34,7 @@ HEADERS += \
     MainWindow.h \
     Pencil.h \
     SpriteModel.h \
+    SpritePlayer.h \
     SpriteTool.h
 
 FORMS += \
