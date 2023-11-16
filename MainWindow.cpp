@@ -29,6 +29,9 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     // Set Icon for the tools and filters
     SetIcons();
 
+    // Set file tab for Save and Load
+    SetFileTab();
+
     // Set sliders Range to match RGB's range of values.
     initSliders();
 
@@ -43,6 +46,8 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     connect(ui->blueSlider, &QSlider::valueChanged, this, &MainWindow::onSlidersValueChanged);
     connect(this, &MainWindow::changeModelCurrentColor, &model, &SpriteModel::changeColor);
     connect(this, &MainWindow::changeTool, &model, &SpriteModel::changeTool);
+    connect(this, &MainWindow::save, &model, &SpriteModel::saveProject );
+    connect(this, &MainWindow::load, &model, &SpriteModel::loadProject );
     connect(&model, &SpriteModel::chooseColor, this, &MainWindow::changeSlidersColor);
 
     // Canvas Sizes Options Connection
@@ -207,6 +212,21 @@ void MainWindow::changeSlidersColor(QColor color) {
     ui->redSlider->setValue(color.red());
     ui->greenSlider->setValue(color.green());
     ui->blueSlider->setValue(color.blue());
+}
+
+void MainWindow::saveToggled() {
+    emit save();
+}
+
+void MainWindow::loadToggled() {
+    emit save();
+}
+
+void MainWindow::SetFileTab() {
+    connect(ui->actionSave, &QAction::toggled, this,
+                &MainWindow::saveToggled);
+    connect(ui->actionOpen, &QAction::toggled, this,
+            &MainWindow::loadToggled);
 }
 
 void MainWindow::SetIcons() {

@@ -56,8 +56,9 @@ public slots:
    */
     void rescale(QSize newSize);
 
-    void saveProject(const QString &filePath);
-    void loadProject(const QString &filePath);
+    // const QString &filePath parameter
+    void saveProject();
+    void loadProject();
 
     /**
    * @brief add Frame(s) to create animation.

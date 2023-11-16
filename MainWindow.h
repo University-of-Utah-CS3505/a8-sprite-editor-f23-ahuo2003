@@ -24,6 +24,8 @@ public:
    */
     void SetIcons();
 
+    void SetFileTab();
+
     void initSizeButtons();
 
 public slots:
@@ -67,6 +69,9 @@ public slots:
    * selected
    */
     void eyeDropperToggled();
+
+    void saveToggled();
+    void loadToggled();
 
     /**
    * @brief changeSlidersColor handles the event for changing the color sliders
@@ -122,6 +127,9 @@ signals:
    * @param toolName the tool to be changed to
    */
     void changeTool(QString toolName);
+
+    void save();
+    void load();
 
     /**
    * @brief getSize send the size of the new canvas
