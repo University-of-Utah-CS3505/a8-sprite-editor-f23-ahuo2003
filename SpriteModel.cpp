@@ -160,9 +160,15 @@ void SpriteModel::loadProject() {
 }
 
 void SpriteModel::addFrame() {
-    frames.append(QImage(currFrame.size(), QImage::Format_ARGB32));
-    currFrame = framesIterator.next();
+    if(frames.size() < 1) frames.append(currFrame);
+    emit updateSpritePlayer(currFrame);
+    QImage newFrame(currFrame.size(), QImage::Format_ARGB32);
+    newFrame.fill(Qt::transparent);
+    frames.append(newFrame);
+    framesIterator.toBack();
+    currFrame = newFrame;
     emit updateFrame(currFrame);
+
 }
 
 void SpriteModel::removeFrame() {
@@ -181,7 +187,7 @@ void SpriteModel::startSpritePlayer()
 
 void SpriteModel::changeSpriteSpeed(int fps)
 {
-    int seconds = frames.size()/fps;
+    int seconds = frames.size()/30;
     spritePlayerSpeed = seconds * 1000;
 }
 
