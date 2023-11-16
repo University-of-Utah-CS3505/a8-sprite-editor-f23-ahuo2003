@@ -155,11 +155,11 @@ signals:
 private:
     QMap<QString, SpriteTool *> tools;
     SpriteTool *currTool;
-    QImage currFrame;
+    QImage *currFrame;
     QColor backgroundColor;
     QColor currColor;
     QList<QImage> frames;
-    QListIterator<QImage> framesIterator;
+    int framesIterator;
     int scaleFactor;
     // Helper functions for saving and loading
     QJsonObject frameToJson(const QList<QImage> &frames);

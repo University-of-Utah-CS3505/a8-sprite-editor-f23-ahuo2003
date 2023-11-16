@@ -7,8 +7,7 @@
 #include "Pencil.h"
 
 SpriteModel::SpriteModel(QObject *parent)
-    : QObject(parent),
-    framesIterator(frames)
+    : QObject(parent)
 {
     // Empty Map and QList
     tools.clear();
@@ -20,21 +19,21 @@ SpriteModel::SpriteModel(QObject *parent)
     tools["Eraser"] = new Eraser();
     tools["Bucket"] = new Bucket();
     tools["Eyedropper"] = new Eyedropper();
-    tools["Filter"] = new Filter();
+    //tools["Filter"] = new Filter();
 
     // Set the rest of the variables to default values
     backgroundColor = Qt::white;
     currColor = Qt::black;
     currTool = tools["Cursor"];
-    currFrame = QImage(8, 8, QImage::Format_ARGB32);
+    frames.append(QImage(8, 8, QImage::Format_ARGB32));
+    currFrame = &frames[0];
     scaleFactor = 64;
 
     // Fill the currentImage completely with transparent pixels
-    currFrame.fill(Qt::transparent);
+    currFrame->fill(Qt::transparent);
 
     // Add initial frame to frame iterator.
-    frames.append(currFrame);
-    framesIterator.toFront();
+    framesIterator = 0;
 
     spritePlayerSpeed = 1000;
 }
@@ -47,21 +46,23 @@ void SpriteModel::changeTool(QString toolName) {
 
 void SpriteModel::useTool(QMouseEvent *event) {
     if (event->type() == QEvent::MouseButtonPress)
-        this->currTool->mousePressed(currFrame, currColor, event, scaleFactor);
+        this->currTool->mousePressed(*currFrame, currColor, event, scaleFactor);
     else if (event->type() == QEvent::MouseButtonRelease) {
         this->currTool->mouseReleased();
         if (currTool->getName() == "Eyedropper")
             emit chooseColor(currColor);
     } else if (event->type() == QEvent::MouseMove)
-        this->currTool->mouseMoved(currFrame, currColor, event, scaleFactor);
-    emit updateFrame(currFrame);
+        this->currTool->mouseMoved(*currFrame, currColor, event, scaleFactor);
+    emit updateFrame(*currFrame);
 }
 
 void SpriteModel::previousFrame() {
-    if (framesIterator.hasPrevious()) {
+    qDebug() << framesIterator;
+    if (framesIterator > 0) {
         // TODO: Emit signal to enable PREVIOUS frame button
-        currFrame = framesIterator.previous();
-        emit updateFrame(currFrame);
+        framesIterator--;
+        currFrame = &(frames[framesIterator]);
+        emit updateFrame(*currFrame);
     }
 
     else {
@@ -70,10 +71,11 @@ void SpriteModel::previousFrame() {
 }
 
 void SpriteModel::nextFrame() {
-    if (framesIterator.hasNext()) {
+    if (framesIterator < frames.size()-1) {
         // TODO: Emit signal to enable NEXT frame button
-        currFrame = framesIterator.next();
-        emit updateFrame(currFrame);
+        framesIterator++;
+        currFrame = &(frames[framesIterator]);
+        emit updateFrame(*currFrame);
     }
 
     else {
@@ -91,30 +93,40 @@ void SpriteModel::rescale(QSize newSize) {
         frame = frame.scaled(newSize.width(), newSize.height());
     }
     // Re-scale the currentFrame so it shows properly on the canvas
-    currFrame = currFrame.scaled(newSize.width(), newSize.height());
+    //currFrame = currFrame->scaled(newSize.width(), newSize.height());
     scaleFactor = 512 / newSize.width();
     emit updateScaleFactor(scaleFactor);
-    emit updateFrame(currFrame);
+    emit updateFrame(*currFrame);
 }
 
 void SpriteModel::removeFrame() {
-    frames.removeOne(currFrame);
-    currFrame = framesIterator.previous();
-    emit updateFrame(currFrame);
+    if (frames.size() > 1){
+        if (framesIterator == frames.size()-1){
+            framesIterator--;
+            currFrame = &(frames[framesIterator]);
+        }
+        frames.removeAt(frames.size()-1);
+        emit updateFrame(*currFrame);
+    }
+    else{
+        //disable remove signal
+    }
 }
 
 void SpriteModel::startSpritePlayer()
 {
     int initialSpeed = spritePlayerSpeed;
     for (const QImage &frame : frames){
-        QTimer::singleShot(initialSpeed += spritePlayerSpeed, this, [this, frame]() { emit updateSpritePlayer(frame); });
+        initialSpeed += spritePlayerSpeed;
+        QTimer::singleShot(initialSpeed, this, [this, frame]() { emit updateSpritePlayer(frame); });
     }
+
 }
 
 void SpriteModel::changeSpriteSpeed(int fps)
 {
-    int seconds = frames.size()/30;
-    spritePlayerSpeed = seconds * 1000;
+    int miliseconds = 1000 / fps;
+    spritePlayerSpeed = miliseconds;
 }
 
 void SpriteModel::redFilter(QImage& currentFrame) {
@@ -215,7 +227,7 @@ void SpriteModel::loadProject() {
 
     // Set currFrame to the first frame if there is at least one frame
     if (!loadedFrames.isEmpty()) {
-        currFrame = loadedFrames.first();
+        currFrame = &loadedFrames.first();
         loadedFrames.removeFirst();
     }
 
@@ -226,14 +238,17 @@ void SpriteModel::loadProject() {
 }
 
 void SpriteModel::addFrame() {
-    if(frames.size() < 1) frames.append(currFrame);
-    emit updateSpritePlayer(currFrame);
-    QImage newFrame(currFrame.size(), QImage::Format_ARGB32);
+    if(frames.size() < 1)
+        frames.append(*currFrame);
+    emit updateSpritePlayer(*currFrame);
+
+    QImage newFrame(currFrame->size(), QImage::Format_ARGB32);
     newFrame.fill(Qt::transparent);
     frames.append(newFrame);
-    framesIterator.toBack();
-    currFrame = newFrame;
-    emit updateFrame(currFrame);
+
+    framesIterator++;
+    currFrame = &(frames[framesIterator]);
+    emit updateFrame(*currFrame);
 
 }
 
