@@ -41,12 +41,4 @@ void Bucket::floodFill(QImage &image, const QPoint &pos, const QColor &startColo
     floodFill(image, QPoint(pos.x() - 1, pos.y()), startColor, newColor); // Left
     floodFill(image, QPoint(pos.x(), pos.y() + 1), startColor, newColor); // Down
     floodFill(image, QPoint(pos.x(), pos.y() - 1), startColor, newColor); // Up
-    floodFill(image, QPoint(pos.x() + 1, pos.y() + 1), startColor,
-              newColor); // Bottom-Right
-    floodFill(image, QPoint(pos.x() - 1, pos.y() - 1), startColor,
-              newColor); // Upper-Left
-    floodFill(image, QPoint(pos.x() - 1, pos.y() + 1), startColor,
-              newColor); // Bottom-Left
-    floodFill(image, QPoint(pos.x() + 1, pos.y() - 1), startColor,
-              newColor); // Upper-Right
 }
