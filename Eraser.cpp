@@ -1,3 +1,4 @@
+/*This was checked by Hunter Keating*/
 #include "Eraser.h"
 
 Eraser::Eraser() : SpriteTool() { name = "Eraser"; }

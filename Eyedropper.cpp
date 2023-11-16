@@ -1,3 +1,4 @@
+/*This was checked by Nam Nguyen*/
 #include "Eyedropper.h"
 
 Eyedropper::Eyedropper() : SpriteTool() { name = "Eyedropper"; }

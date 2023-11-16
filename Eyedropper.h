@@ -1,3 +1,4 @@
+/*This was checked by Nam Nguyen*/
 #ifndef EYEDROPPER_H
 #define EYEDROPPER_H
 #include "SpriteTool.h"

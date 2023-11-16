@@ -1,3 +1,4 @@
+/*This was checked by Hai Minh Pham*/
 #include "Bucket.h"
 
 Bucket::Bucket() : SpriteTool() { name = "Bucket"; }

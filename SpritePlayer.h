@@ -1,3 +1,4 @@
+/*This was checked by Andy Huo*/
 #ifndef SPRITEPLAYER_H
 #define SPRITEPLAYER_H
 

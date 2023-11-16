@@ -1,3 +1,4 @@
+/*This was checked by Hai Minh Pham*/
 #ifndef CURSOR_H
 #define CURSOR_H
 

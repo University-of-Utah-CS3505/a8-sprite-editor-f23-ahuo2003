@@ -1,3 +1,4 @@
+/*This was checked by Thomas Kuhrke Limia*/
 #ifndef SPRITEMODEL_H
 #define SPRITEMODEL_H
 #include "SpriteTool.h"

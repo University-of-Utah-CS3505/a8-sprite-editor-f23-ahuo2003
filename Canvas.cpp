@@ -1,3 +1,4 @@
+/*This was checked by Andy Huo*/
 #include "Canvas.h"
 #include "qpainter.h"
 #include "qpen.h"

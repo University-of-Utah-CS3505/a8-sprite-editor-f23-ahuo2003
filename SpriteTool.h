@@ -1,3 +1,4 @@
+/*This was checked by Emmanuel Luna*/
 #ifndef SPRITETOOL_H
 #define SPRITETOOL_H
 #include <QColor>

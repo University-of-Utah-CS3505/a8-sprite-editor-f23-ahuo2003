@@ -1,3 +1,4 @@
+/*This was checked by Hai Minh Pham*/
 #include "Pencil.h"
 
 Pencil::Pencil() : SpriteTool() { name = "Pencil"; }

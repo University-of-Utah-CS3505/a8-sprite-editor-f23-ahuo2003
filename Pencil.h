@@ -1,3 +1,4 @@
+/*This was checked by Nam Nguyen*/
 #ifndef PENCIL_H
 #define PENCIL_H
 #include "SpriteTool.h"

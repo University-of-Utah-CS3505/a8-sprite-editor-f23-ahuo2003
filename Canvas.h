@@ -1,3 +1,4 @@
+/*This was checked by Andy Huo*/
 #ifndef CANVAS_H
 #define CANVAS_H
 #include <QLabel>

@@ -1,3 +1,4 @@
+/*This was checked by Emmanuel Luna*/
 #ifndef BUCKET_H
 #define BUCKET_H
 #include "SpriteTool.h"

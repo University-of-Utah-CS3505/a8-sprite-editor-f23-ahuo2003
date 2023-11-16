@@ -1,3 +1,4 @@
+/*This was checked by Nam Nguyen*/
 #include "MainWindow.h"
 #include "Canvas.h"
 #include "SpriteModel.h"

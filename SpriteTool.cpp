@@ -1,3 +1,4 @@
+/*This was checked by Nam Nguyen*/
 #include "SpriteTool.h"
 
 // General Tool Declaration

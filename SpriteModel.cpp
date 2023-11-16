@@ -1,3 +1,4 @@
+/*This was checked by Hunter Keating*/
 #include "SpriteModel.h"
 #include "Bucket.h"
 #include "Cursor.h"

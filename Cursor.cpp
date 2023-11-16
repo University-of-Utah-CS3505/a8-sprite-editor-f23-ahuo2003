@@ -1,3 +1,4 @@
+/*This was checked by Thomas Kuhrke Limia*/
 #include "Cursor.h"
 
 Cursor::Cursor() { name = "Cursor"; }

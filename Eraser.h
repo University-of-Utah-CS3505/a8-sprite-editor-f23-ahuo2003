@@ -1,3 +1,4 @@
+/*This was checked by Hunter Keating*/
 #ifndef ERASER_H
 #define ERASER_H
 #include "SpriteTool.h"
