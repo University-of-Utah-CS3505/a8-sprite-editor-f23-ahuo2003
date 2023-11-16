@@ -35,6 +35,8 @@ SpriteModel::SpriteModel(QObject *parent)
     // Add initial frame to frame iterator.
     frames.append(currFrame);
     framesIterator.toFront();
+
+    spritePlayerSpeed = 1000;
 }
 
 void SpriteModel::changeTool(QString toolName) {
@@ -63,7 +65,7 @@ void SpriteModel::previousFrame() {
     }
 
     else {
-        // TODO: Emit signal to disable the PREVIOUS frame button
+        emit disablePreviousFrameButton();
     }
 }
 
@@ -75,7 +77,7 @@ void SpriteModel::nextFrame() {
     }
 
     else {
-        // TODO: Emit signal to disable the NEXT button
+        emit disableNextFrameButton();
     }
 }
 
@@ -84,10 +86,15 @@ void SpriteModel::changeColor(int red, int green, int blue) {
 }
 
 void SpriteModel::rescale(QSize newSize) {
-    // TODO: Rescale all frames
+    // Rescale all frames
+    for (QImage &frame : frames){
+        frame = frame.scaled(newSize.width(), newSize.height());
+    }
+    // Re-scale the currentFrame so it shows properly on the canvas
     currFrame = currFrame.scaled(newSize.width(), newSize.height());
     scaleFactor = 512 / newSize.width();
     emit updateScaleFactor(scaleFactor);
+    emit updateFrame(currFrame);
 }
 
 // const QString &filePath parameter
@@ -162,6 +169,20 @@ void SpriteModel::removeFrame() {
     frames.removeOne(currFrame);
     currFrame = framesIterator.previous();
     emit updateFrame(currFrame);
+}
+
+void SpriteModel::startSpritePlayer()
+{
+    int initialSpeed = spritePlayerSpeed;
+    for (const QImage &frame : frames){
+        QTimer::singleShot(initialSpeed += spritePlayerSpeed, this, [this, frame]() { emit updateSpritePlayer(frame); });
+    }
+}
+
+void SpriteModel::changeSpriteSpeed(int fps)
+{
+    int seconds = frames.size()/fps;
+    spritePlayerSpeed = seconds * 1000;
 }
 
 QJsonObject SpriteModel::frameToJson(const QList<QImage> &frames) {

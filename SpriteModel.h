@@ -14,6 +14,7 @@
 #include <QObject>
 #include <QPixmap>
 #include <QSize>
+#include <QTimer>
 
 class SpriteModel : public QObject {
     Q_OBJECT
@@ -56,8 +57,14 @@ public slots:
    */
     void rescale(QSize newSize);
 
-    // const QString &filePath parameter
+    /**
+     * @brief saveProject TODO
+     */
     void saveProject();
+
+    /**
+     * @brief loadProject TODO
+     */
     void loadProject();
 
     /**
@@ -69,6 +76,16 @@ public slots:
    * @brief delete unwanted Frame(s).
    */
     void removeFrame();
+
+    /**
+     * @brief startSpritePlayer TODO
+     */
+    void startSpritePlayer();
+
+    /**
+     * @brief changeSpriteSpeed TODO
+     */
+    void changeSpriteSpeed(int speed);
 
 signals:
     /**
@@ -96,6 +113,21 @@ signals:
    */
     void updateScaleFactor(int scaleFactor);
 
+    /**
+     * @brief disablePreviousFrameButton TODO
+     */
+    void disablePreviousFrameButton();
+
+    /**
+     * @brief disableNextFrameButton TODO
+     */
+    void disableNextFrameButton();
+
+    /**
+     * @brief updateSpritePlayer TODO
+     */
+    void updateSpritePlayer(QImage frame);
+
 private:
     QMap<QString, SpriteTool *> tools;
     SpriteTool *currTool;
@@ -108,5 +140,6 @@ private:
     // Helper functions for saving and loading
     QJsonObject frameToJson(const QList<QImage> &frames);
     void jsonToFrame(const QJsonObject &project, QList<QImage> &frames);
+    int spritePlayerSpeed;
 };
 #endif // SPRITEMODEL_H
