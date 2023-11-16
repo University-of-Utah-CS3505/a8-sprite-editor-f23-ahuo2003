@@ -129,46 +129,46 @@ void SpriteModel::changeSpriteSpeed(int fps)
     spritePlayerSpeed = miliseconds;
 }
 
-void SpriteModel::redFilter(QImage& currentFrame) {
+void SpriteModel::redFilter() {
     // Apply redscale filter to the entire image
-    for (int y = 0; y < currentFrame.height(); ++y) {
-        for (int x = 0; x < currentFrame.width(); ++x) {
-            QRgb pixelColor = currentFrame.pixel(x, y);
+    for (int y = 0; y < currFrame->height(); ++y) {
+        for (int x = 0; x < currFrame->width(); ++x) {
+            QRgb pixelColor = currFrame->pixel(x, y);
             int luminance = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
-            currentFrame.setPixelColor(x, y, QColor(luminance, 0, 0));
+            currFrame->setPixelColor(x, y, QColor(luminance, 0, 0));
         }
     }
 }
 
-void SpriteModel::greenFilter(QImage& currentFrame) {
+void SpriteModel::greenFilter() {
     // Apply redscale filter to the entire image
-    for (int y = 0; y < currentFrame.height(); ++y) {
-        for (int x = 0; x < currentFrame.width(); ++x) {
-            QRgb pixelColor = currentFrame.pixel(x, y);
+    for (int y = 0; y < currFrame->height(); ++y) {
+        for (int x = 0; x < currFrame->width(); ++x) {
+            QRgb pixelColor = currFrame->pixel(x, y);
             int luminance = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
-            currentFrame.setPixelColor(x, y, QColor(0, luminance, 0));
+            currFrame->setPixelColor(x, y, QColor(0, luminance, 0));
         }
     }
 }
 
-void SpriteModel::blueFilter(QImage& currentFrame) {
+void SpriteModel::blueFilter() {
     // Apply redscale filter to the entire image
-    for (int y = 0; y < currentFrame.height(); ++y) {
-        for (int x = 0; x < currentFrame.width(); ++x) {
-            QRgb pixelColor = currentFrame.pixel(x, y);
+    for (int y = 0; y < currFrame->height(); ++y) {
+        for (int x = 0; x < currFrame->width(); ++x) {
+            QRgb pixelColor = currFrame->pixel(x, y);
             int luminance = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
-            currentFrame.setPixelColor(x, y, QColor(0, 0, luminance));
+            currFrame->setPixelColor(x, y, QColor(0, 0, luminance));
         }
     }
 }
 
-void SpriteModel::greyFilter(QImage& currentFrame) {
+void SpriteModel::greyFilter() {
     // Apply greyscale filter to the entire image
-    for (int y = 0; y < currentFrame.height(); ++y) {
-        for (int x = 0; x < currentFrame.width(); ++x) {
-            QRgb pixelColor = currentFrame.pixel(x, y);
+    for (int y = 0; y < currFrame->height(); ++y) {
+        for (int x = 0; x < currFrame->width(); ++x) {
+            QRgb pixelColor = currFrame->pixel(x, y);
             int grey = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
-            currentFrame.setPixelColor(x, y, QColor(grey, grey, grey));
+            currFrame->setPixelColor(x, y, QColor(grey, grey, grey));
         }
     }
 }
@@ -329,3 +329,5 @@ void SpriteModel::jsonToFrame(const QJsonObject& project, QList<QImage>& frames)
             frames.append(frame);
         }
 }
+
+

@@ -58,6 +58,26 @@ public slots:
     void rescale(QSize newSize);
 
     /**
+     * @brief greyFilter
+     */
+    void greyFilter();
+
+    /**
+     * @brief redFilter
+     */
+    void redFilter();
+
+    /**
+     * @brief greenFilter
+     */
+    void greenFilter();
+
+    /**
+     * @brief blueFilter
+     */
+    void blueFilter();
+
+    /**
      * @brief saveProject TODO
      */
     void saveProject();
