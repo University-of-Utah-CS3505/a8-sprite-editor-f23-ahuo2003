@@ -81,6 +81,12 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
 //    connect(ui->filterGreen, &QPushButton::clicked, this, &MainWindow::cursorToggled);
 //    connect(ui->filterGrey, &QPushButton::clicked, &model, &SpriteModel::greyFilter);
 //    connect(ui->filterGrey, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+
+    connect(&model, &SpriteModel::requestSaveFilePath, this, &MainWindow::onRequestSaveFilePath);
+    connect(&model, &SpriteModel::requestLoadFilePath, this, &MainWindow::onRequestLoadFilePath);
+    connect(this, &MainWindow::performSave, &model, &SpriteModel::onPerformSave);
+    connect(this, &MainWindow::performLoad, &model, &SpriteModel::onPerformLoad);
+
 }
 
 MainWindow::~MainWindow() {
@@ -169,6 +175,21 @@ void MainWindow::hideBoxes() {
 void MainWindow::onFPSValueChanged(){
     int fps = ui->fpsSlider->value();
     emit changeFPS(fps);
+}
+
+void MainWindow::onRequestSaveFilePath()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Project"), "",  tr("Sprite Sheet Project (*.ssp)"));
+    if(!fileName.isEmpty()) emit performSave(fileName);
+
+
+}
+
+void MainWindow::onRequestLoadFilePath()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Load Project"), "",  tr("Sprite Sheet Project (*.ssp)"));
+    if(!fileName.isEmpty()) emit performLoad(fileName);
+
 }
 
 void MainWindow::onSlidersValueChanged() {

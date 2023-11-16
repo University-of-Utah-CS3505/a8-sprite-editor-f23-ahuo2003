@@ -162,6 +162,88 @@ void SpriteModel::blueFilter(QImage& currentFrame) {
     }
 }
 
+void SpriteModel::onPerformSave(QString fileName)
+{
+    QFile saveFile(fileName);
+    if(!saveFile.open(QIODevice::WriteOnly)) {  qDebug() << "Failed saving"; return;}
+
+    QJsonObject projectData;
+    projectData["frames"] = framesToJson(frames);
+    QJsonDocument saveDoc(projectData);
+    saveFile.write(saveDoc.toJson());
+    saveFile.close();
+}
+
+QJsonArray SpriteModel::framesToJson(const QList<QImage> &frames) {
+    QJsonArray framesArray;
+
+    for (const QImage &frame : frames) {
+        QJsonObject frameData;
+        frameData["width"] = frame.width();
+        frameData["height"] = frame.height();
+
+        QJsonArray pixelDataArray;
+        for (int y = 0; y < frame.height(); ++y) {
+            for (int x = 0; x < frame.width(); ++x) {
+                QRgb pixel = frame.pixel(x, y);
+                QJsonObject pixelData;
+                pixelData["r"] = qRed(pixel);
+                pixelData["g"] = qGreen(pixel);
+                pixelData["b"] = qBlue(pixel);
+                pixelData["a"] = qAlpha(pixel);
+                pixelDataArray.append(pixelData);
+            }
+        }
+        frameData["pixels"] = pixelDataArray;
+        framesArray.append(frameData);
+    }
+
+    return framesArray;
+}
+
+
+void SpriteModel::jsonToFrames(const QJsonArray &framesArray, QList<QImage> &frames) {
+    frames.clear();
+
+    for (const QJsonValue &value : framesArray) {
+        QJsonObject frameData = value.toObject();
+        int width = frameData["width"].toInt();
+        int height = frameData["height"].toInt();
+        QImage frame(width, height, QImage::Format_ARGB32);
+
+        QJsonArray pixelDataArray = frameData["pixels"].toArray();
+        int index = 0;
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                QJsonObject pixelData = pixelDataArray[index++].toObject();
+                int r = pixelData["r"].toInt();
+                int g = pixelData["g"].toInt();
+                int b = pixelData["b"].toInt();
+                int a = pixelData["a"].toInt();
+                frame.setPixelColor(x, y, QColor(r, g, b, a));
+            }
+        }
+
+        frames.append(frame);
+    }
+}
+
+void SpriteModel::onPerformLoad(QString fileName)
+{
+    QFile loadFile(fileName);
+    if(!loadFile.open(QIODevice::ReadOnly)) return;
+
+    QByteArray saveData = loadFile.readAll();
+    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+    QJsonObject projectData = loadDoc.object();
+
+    jsonToFrames(projectData["frames"].toArray() , frames);
+
+    framesIterator = 0;
+    emit updateFrame(frames[0]);
+
+}
+
 void SpriteModel::greyFilter(QImage& currentFrame) {
     // Apply greyscale filter to the entire image
     for (int y = 0; y < currentFrame.height(); ++y) {
@@ -177,64 +259,11 @@ void SpriteModel::greyFilter(QImage& currentFrame) {
 
 // const QString &filePath parameter
 void SpriteModel::saveProject() {
-    // Ensure the filePath has the .ssp extension
-    QString savePath = "~/testProject.ssp";
-    if (!savePath.endsWith(".ssp", Qt::CaseInsensitive))
-        savePath += ".ssp";
-
-    QJsonObject project;
-
-    // Add project-specific information to the JSON object
-    project["projectName"] = "Your Project Name";
-
-    project["frame"] = frameToJson(frames);
-
-    // Convert the JSON object to a JSON document
-    QJsonDocument jsonDoc(project);
-
-    // Save the JSON document to a file with .ssp extension
-    QFile saveFile(savePath);
-    if (saveFile.open(QFile::WriteOnly | QFile::Text)) {
-        saveFile.write(jsonDoc.toJson());
-        saveFile.close();
-    } else {
-        qDebug() << "Failed to save project.";
-    }
+    emit requestSaveFilePath();
 }
 
 void SpriteModel::loadProject() {
-    // Load the JSON document from the file
-    QFile loadFile("~/testProject.ssp");
-    if (!loadFile.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << "Could not open the project file.";
-        return;
-    }
-
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(loadFile.readAll());
-    loadFile.close();
-
-    if (jsonDoc.isNull()) {
-        qDebug() << "Failed to parse the project file.";
-        return;
-    }
-
-    // Parse the JSON document and retrieve project information
-    QJsonObject project = jsonDoc.object();
-
-    // Retrieve frames data
-    QList<QImage> loadedFrames;
-    jsonToFrame(project, loadedFrames);
-
-    // Set currFrame to the first frame if there is at least one frame
-    if (!loadedFrames.isEmpty()) {
-        currFrame = &loadedFrames.first();
-        loadedFrames.removeFirst();
-    }
-
-    // Update the frames QList with the loaded frames
-    frames = loadedFrames;
-
-    //emit updateFrame(); // Optional: emit a signal after loading
+    emit requestLoadFilePath();
 }
 
 void SpriteModel::addFrame() {
@@ -250,82 +279,4 @@ void SpriteModel::addFrame() {
     currFrame = &(frames[framesIterator]);
     emit updateFrame(*currFrame);
 
-}
-
-QJsonObject SpriteModel::frameToJson(const QList<QImage> &frames) {
-        QJsonObject project;
-
-        // Add project-specific information to the JSON object
-        project["projectName"] = "Your Project Name";
-
-        // Convert the list of frames to a JSON array
-        QJsonArray framesData;
-        for (const QImage& frame : frames) {
-            QJsonObject frameData;
-            frameData["width"] = frame.width();
-            frameData["height"] = frame.height();
-
-            // Convert the pixel data to a JSON array
-            QJsonArray pixelData;
-            for (int y = 0; y < frame.height(); ++y) {
-                for (int x = 0; x < frame.width(); ++x) {
-                    QRgb pixelColor = frame.pixel(x, y);
-                    QString pixelValue = QString("%1,%2,%3,%4")
-                                            .arg(qRed(pixelColor))
-                                            .arg(qGreen(pixelColor))
-                                            .arg(qBlue(pixelColor))
-                                            .arg(qAlpha(pixelColor));
-                    pixelData.append(pixelValue);
-                }
-            }
-
-            frameData["pixels"] = pixelData;
-            framesData.append(frameData);
-        }
-
-        project["frames"] = framesData;
-
-        return project;
-}
-
-void SpriteModel::jsonToFrame(const QJsonObject& project, QList<QImage>& frames)
-{
-        // Retrieve the frames data array
-        QJsonArray framesData = project["frames"].toArray();
-
-        // Clear the existing frames QList
-        frames.clear();
-
-        // Loop through each frame data
-        for (const QJsonValue& frameValue : framesData) {
-            QJsonObject frameData = frameValue.toObject();
-
-            // Retrieve width and height
-            int width = frameData["width"].toInt();
-            int height = frameData["height"].toInt();
-
-            // Create a new frame with the specified dimensions
-            QImage frame = QImage(width, height, QImage::Format_ARGB32);
-
-            // Retrieve pixel data
-            QJsonArray pixelData = frameData["pixels"].toArray();
-            int index = 0;
-            for (int y = 0; y < frame.height(); ++y) {
-                for (int x = 0; x < frame.width(); ++x) {
-                    QString pixelValue = pixelData[index++].toString();
-                    QStringList components = pixelValue.split(",");
-                    if (components.size() == 4) {
-                        int red = components[0].toInt();
-                        int green = components[1].toInt();
-                        int blue = components[2].toInt();
-                        int alpha = components[3].toInt();
-                        QRgb pixelColor = qRgba(red, green, blue, alpha);
-                        frame.setPixelColor(x, y, QColor(pixelColor));
-                    }
-                }
-            }
-
-            // Add the frame to the frames QList
-            frames.append(frame);
-        }
 }

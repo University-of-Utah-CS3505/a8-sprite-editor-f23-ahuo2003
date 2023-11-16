@@ -5,6 +5,7 @@
 #include <QButtonGroup>
 #include <QFile>
 #include <QMainWindow>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -146,6 +147,9 @@ public slots:
    */
   void onFPSValueChanged();
 
+  void onRequestSaveFilePath();
+  void onRequestLoadFilePath();
+
 signals:
   /**
    * @brief changeModelCurrentColor change the current selected color
@@ -201,6 +205,9 @@ signals:
      * @param fps
      */
     void changeFPS(int fps);
+
+    void performSave(QString fileName);
+    void performLoad(QString fileName);
 
 private:
   // The UI for this MainWindow

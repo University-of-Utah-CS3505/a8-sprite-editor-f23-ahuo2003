@@ -110,6 +110,8 @@ public slots:
      * @param currentFrame
      */
     void blueFilter(QImage& currentFrame);
+    void onPerformSave(QString fileName);
+    void onPerformLoad(QString fileName);
 
 signals:
     /**
@@ -152,6 +154,10 @@ signals:
      */
     void updateSpritePlayer(QImage frame);
 
+    void requestSaveFilePath();
+    void requestLoadFilePath();
+    void projectDataLoaded(const QJsonObject &projectData);
+
 private:
     QMap<QString, SpriteTool *> tools;
     SpriteTool *currTool;
@@ -162,8 +168,8 @@ private:
     int framesIterator;
     int scaleFactor;
     // Helper functions for saving and loading
-    QJsonObject frameToJson(const QList<QImage> &frames);
-    void jsonToFrame(const QJsonObject &project, QList<QImage> &frames);
+    QJsonArray framesToJson(const QList<QImage> &frames);
+    void jsonToFrames(const QJsonArray &framesArray, QList<QImage> &frames);
     int spritePlayerSpeed;
 };
 #endif // SPRITEMODEL_H
