@@ -130,6 +130,11 @@ public slots:
    */
     void hideBoxes();
 
+    /**
+     * @brief onFPSValueChanged
+     */
+    void onFPSValueChanged();
+
 signals:
     /**
    * @brief changeModelCurrentColor change the current selected color
@@ -145,7 +150,14 @@ signals:
    */
     void changeTool(QString toolName);
 
+    /**
+     * @brief save
+     */
     void save();
+
+    /**
+     * @brief load
+     */
     void load();
 
     /**
@@ -153,6 +165,12 @@ signals:
    * @param size the new size
    */
     void getSize(QSize size);
+
+    /**
+     * @brief changeFPS
+     * @param fps
+     */
+    void changeFPS(int fps);
 
 private:
     // The UI for this MainWindow

@@ -438,7 +438,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>FPS: </string>
+      <string>1 FPS</string>
      </property>
     </widget>
     <widget class="QLabel" name="redLabel">

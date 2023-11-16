@@ -9,7 +9,7 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->fpsSlider->setRange(1, 60);
+    ui->fpsSlider->setRange(1, 24);
 
     // Default window size of 1280x720 (non-resizable)
     this->setFixedSize(1280, 720);
@@ -68,7 +68,9 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     connect(&model, &SpriteModel::updateSpritePlayer, ui->animationPreview, &SpritePlayer::redrawCanvas);
     connect(ui->addFrameButton, &QPushButton::clicked, &model, &SpriteModel::addFrame);
     connect(ui->deleteFrameButton, &QPushButton::clicked, &model, &SpriteModel::removeFrame);
-
+    connect(ui->fpsSlider, &QSlider::valueChanged, this, &MainWindow::onFPSValueChanged);
+    connect(this, &MainWindow::changeFPS, &model, &SpriteModel::changeSpriteSpeed);
+    connect(ui->fpsSlider, &QSlider::valueChanged, this, [this](int value) {ui->fpsLabel->setText(QString::number(value) + " FPS");});
 }
 
 MainWindow::~MainWindow() {
@@ -152,6 +154,11 @@ void MainWindow::hideBoxes() {
     ui->sixteen->setVisible(false);
     ui->thirtyTwo->setVisible(false);
     ui->sixtyFour->setVisible(false);
+}
+
+void MainWindow::onFPSValueChanged(){
+    int fps = ui->fpsSlider->value();
+    emit changeFPS(fps);
 }
 
 void MainWindow::onSlidersValueChanged() {
