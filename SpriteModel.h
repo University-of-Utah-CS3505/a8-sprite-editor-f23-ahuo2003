@@ -106,27 +106,23 @@ public slots:
 
   /**
    * @brief greyFilter applies a grey filter to the current frame.
-   * @param currentFrame the current frame.
    */
-  void greyFilter(QImage &currentFrame);
+  void greyFilter();
 
   /**
    * @brief redFilter applies a red filter to the current frame.
-   * @param currentFrame the current frame.
    */
-  void redFilter(QImage &currentFrame);
+  void redFilter();
 
   /**
    * @brief greenFilter applies a green filter to the current frame.
-   * @param currentFrame the current frame.
    */
-  void greenFilter(QImage &currentFrame);
+  void greenFilter();
 
   /**
    * @brief blueFilter applies a blue filter to the current frame.
-   * @param currentFrame the current frame.
    */
-  void blueFilter(QImage &currentFrame);
+  void blueFilter();
 
   /**
    * @brief onPerformSave save the project.

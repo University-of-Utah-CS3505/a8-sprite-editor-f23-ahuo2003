@@ -90,18 +90,22 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
   });
 
   // Filter Conenctions
-  //    connect(ui->filterRed, &QPushButton::clicked, &model,
-  //    &SpriteModel::redFilter); connect(ui->filterRed, &QPushButton::clicked,
-  //    this, &MainWindow::cursorToggled); connect(ui->filterBlue,
-  //    &QPushButton::clicked, &model, &SpriteModel::blueFilter);
-  //    connect(ui->filterBlue, &QPushButton::clicked, this,
-  //    &MainWindow::cursorToggled); connect(ui->filterGreen,
-  //    &QPushButton::clicked, &model, &SpriteModel::greenFilter);
-  //    connect(ui->filterGreen, &QPushButton::clicked, this,
-  //    &MainWindow::cursorToggled); connect(ui->filterGrey,
-  //    &QPushButton::clicked, &model, &SpriteModel::greyFilter);
-  //    connect(ui->filterGrey, &QPushButton::clicked, this,
-  //    &MainWindow::cursorToggled);
+  connect(ui->filterRed, &QPushButton::clicked, &model,
+          &SpriteModel::redFilter);
+  connect(ui->filterRed, &QPushButton::clicked, this,
+          &MainWindow::cursorToggled);
+  connect(ui->filterBlue, &QPushButton::clicked, &model,
+          &SpriteModel::blueFilter);
+  connect(ui->filterBlue, &QPushButton::clicked, this,
+          &MainWindow::cursorToggled);
+  connect(ui->filterGreen, &QPushButton::clicked, &model,
+          &SpriteModel::greenFilter);
+  connect(ui->filterGreen, &QPushButton::clicked, this,
+          &MainWindow::cursorToggled);
+  connect(ui->filterGrey, &QPushButton::clicked, &model,
+          &SpriteModel::greyFilter);
+  connect(ui->filterGrey, &QPushButton::clicked, this,
+          &MainWindow::cursorToggled);
 
   connect(&model, &SpriteModel::requestSaveFilePath, this,
           &MainWindow::onRequestSaveFilePath);

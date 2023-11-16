@@ -1,8 +1,8 @@
 /*
-*Names: Hunter Keating, Hai Minh Pham, Thomas Kuhrke Limia, Andy Huo, Nam Nguyen, Emmanuel Luna
-*Assignment: A8: Sprite Editor
-*Description: This program make a sp
-*/
+ *Names: Hunter Keating, Hai Minh Pham, Thomas Kuhrke Limia, Andy Huo, Nam
+ *Nguyen, Emmanuel Luna Assignment: A8: Sprite Editor Description: This program
+ *make a sp
+ */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "Canvas.h"
