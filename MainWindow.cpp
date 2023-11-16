@@ -234,7 +234,7 @@ void MainWindow::loadToggled() {
 void MainWindow::SetFileTab() {
     connect(ui->saveButton, &QPushButton::clicked, this,
                 &MainWindow::saveToggled);
-    connect(ui->actionOpen, &QAction::toggled, this,
+    connect(ui->loadButton, &QPushButton::clicked, this,
             &MainWindow::loadToggled);
 }
 
