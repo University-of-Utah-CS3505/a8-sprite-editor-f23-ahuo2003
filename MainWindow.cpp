@@ -71,6 +71,16 @@ MainWindow::MainWindow(SpriteModel &model, Canvas &canvas, QWidget *parent)
     connect(ui->fpsSlider, &QSlider::valueChanged, this, &MainWindow::onFPSValueChanged);
     connect(this, &MainWindow::changeFPS, &model, &SpriteModel::changeSpriteSpeed);
     connect(ui->fpsSlider, &QSlider::valueChanged, this, [this](int value) {ui->fpsLabel->setText(QString::number(value) + " FPS");});
+
+    //Filter Conenctions
+    connect(ui->filterRed, &QPushButton::clicked, &model, &SpriteModel::redFilter);
+    connect(ui->filterRed, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+    connect(ui->filterBlue, &QPushButton::clicked, &model, &SpriteModel::blueFilter);
+    connect(ui->filterBlue, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+    connect(ui->filterGreen, &QPushButton::clicked, &model, &SpriteModel::greenFilter);
+    connect(ui->filterGreen, &QPushButton::clicked, this, &MainWindow::cursorToggled);
+    connect(ui->filterGrey, &QPushButton::clicked, &model, &SpriteModel::greyFilter);
+    connect(ui->filterGrey, &QPushButton::clicked, this, &MainWindow::cursorToggled);
 }
 
 MainWindow::~MainWindow() {
@@ -219,6 +229,22 @@ void MainWindow::eyeDropperToggled() {
     ui->bucketTool->setChecked(false);
     ui->eyeDropperTool->setChecked(true);
     emit changeTool("Eyedropper");
+}
+
+void MainWindow::applyRedFilter(){
+    emit red();
+}
+
+void MainWindow::applyBlueFilter(){
+    emit blue();
+}
+
+void MainWindow::applyGreenFilter(){
+    emit green();
+}
+
+void MainWindow::applyGreyFilter(){
+    emit grey();
 }
 
 void MainWindow::changeSlidersColor(QColor color) {
