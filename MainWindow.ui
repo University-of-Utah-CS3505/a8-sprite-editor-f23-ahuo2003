@@ -122,14 +122,14 @@
    <widget class="QPushButton" name="showSize">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>270</x>
       <y>10</y>
-      <width>121</width>
+      <width>171</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show Canvas Sizes</string>
+     <string>Show Canvas Sizes Options</string>
     </property>
    </widget>
    <widget class="QPushButton" name="hideSize">
@@ -137,12 +137,12 @@
      <rect>
       <x>480</x>
       <y>10</y>
-      <width>121</width>
+      <width>181</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>Hide Canvas Sizes</string>
+     <string>Hide Canvas Sizes Options</string>
     </property>
    </widget>
    <zorder>frame</zorder>
