@@ -87,6 +87,30 @@ public slots:
      */
     void changeSpriteSpeed(int speed);
 
+    /**
+     * @brief greyFilter
+     * @param currentFrame
+     */
+    void greyFilter(QImage& currentFrame);
+
+    /**
+     * @brief redFilter
+     * @param currentFrame
+     */
+    void redFilter(QImage& currentFrame);
+
+    /**
+     * @brief greenFilter
+     * @param currentFrame
+     */
+    void greenFilter(QImage& currentFrame);
+
+    /**
+     * @brief blueFilter
+     * @param currentFrame
+     */
+    void blueFilter(QImage& currentFrame);
+
 signals:
     /**
    * @brief updateFrame tells the view to update the drawing in the current

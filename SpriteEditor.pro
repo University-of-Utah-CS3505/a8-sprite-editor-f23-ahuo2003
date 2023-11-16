@@ -14,7 +14,6 @@ SOURCES += \
     Cursor.cpp \
     Eraser.cpp \
     Eyedropper.cpp \
-    Filter.cpp \
     Frame.cpp \
     MainWindow.cpp \
     Pencil.cpp \

@@ -97,80 +97,6 @@ void SpriteModel::rescale(QSize newSize) {
     emit updateFrame(currFrame);
 }
 
-// const QString &filePath parameter
-void SpriteModel::saveProject() {
-    // Ensure the filePath has the .ssp extension
-    QString savePath = "~/testProject.ssp";
-    if (!savePath.endsWith(".ssp", Qt::CaseInsensitive))
-    savePath += ".ssp";
-
-    QJsonObject project;
-
-    // Add project-specific information to the JSON object
-    project["projectName"] = "Your Project Name";
-
-    project["frame"] = frameToJson(frames);
-
-    // Convert the JSON object to a JSON document
-    QJsonDocument jsonDoc(project);
-
-    // Save the JSON document to a file with .ssp extension
-    QFile saveFile(savePath);
-    if (saveFile.open(QFile::WriteOnly | QFile::Text)) {
-    saveFile.write(jsonDoc.toJson());
-    saveFile.close();
-    } else {
-    qDebug() << "Failed to save project.";
-    }
-}
-
-void SpriteModel::loadProject() {
-    // Load the JSON document from the file
-    QFile loadFile("~/testProject.ssp");
-    if (!loadFile.open(QFile::ReadOnly | QFile::Text)) {
-    qDebug() << "Could not open the project file.";
-    return;
-    }
-
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(loadFile.readAll());
-    loadFile.close();
-
-    if (jsonDoc.isNull()) {
-    qDebug() << "Failed to parse the project file.";
-    return;
-    }
-
-    // Parse the JSON document and retrieve project information
-    QJsonObject project = jsonDoc.object();
-
-    // Retrieve frames data
-    QList<QImage> loadedFrames;
-    jsonToFrame(project, loadedFrames);
-
-    // Set currFrame to the first frame if there is at least one frame
-    if (!loadedFrames.isEmpty()) {
-    currFrame = loadedFrames.first();
-    loadedFrames.removeFirst();
-    }
-
-    // Update the frames QList with the loaded frames
-    frames = loadedFrames;
-
-    //emit updateFrame(); // Optional: emit a signal after loading
-}
-
-void SpriteModel::addFrame() {
-    if(frames.size() < 1) frames.append(currFrame);
-    emit updateSpritePlayer(currFrame);
-    QImage newFrame(currFrame.size(), QImage::Format_ARGB32);
-    newFrame.fill(Qt::transparent);
-    frames.append(newFrame);
-    framesIterator.toBack();
-    currFrame = newFrame;
-    emit updateFrame(currFrame);
-
-}
-
 void SpriteModel::removeFrame() {
     frames.removeOne(currFrame);
     currFrame = framesIterator.previous();
@@ -189,6 +115,126 @@ void SpriteModel::changeSpriteSpeed(int fps)
 {
     int seconds = frames.size()/30;
     spritePlayerSpeed = seconds * 1000;
+}
+
+void SpriteModel::redFilter(QImage& currentFrame) {
+    // Apply redscale filter to the entire image
+    for (int y = 0; y < currentFrame.height(); ++y) {
+        for (int x = 0; x < currentFrame.width(); ++x) {
+            QRgb pixelColor = currentFrame.pixel(x, y);
+            int luminance = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
+            currentFrame.setPixelColor(x, y, QColor(luminance, 0, 0));
+        }
+    }
+}
+
+void SpriteModel::greenFilter(QImage& currentFrame) {
+    // Apply redscale filter to the entire image
+    for (int y = 0; y < currentFrame.height(); ++y) {
+        for (int x = 0; x < currentFrame.width(); ++x) {
+            QRgb pixelColor = currentFrame.pixel(x, y);
+            int luminance = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
+            currentFrame.setPixelColor(x, y, QColor(0, luminance, 0));
+        }
+    }
+}
+
+void SpriteModel::blueFilter(QImage& currentFrame) {
+    // Apply redscale filter to the entire image
+    for (int y = 0; y < currentFrame.height(); ++y) {
+        for (int x = 0; x < currentFrame.width(); ++x) {
+            QRgb pixelColor = currentFrame.pixel(x, y);
+            int luminance = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
+            currentFrame.setPixelColor(x, y, QColor(0, 0, luminance));
+        }
+    }
+}
+
+void SpriteModel::greyFilter(QImage& currentFrame) {
+    // Apply greyscale filter to the entire image
+    for (int y = 0; y < currentFrame.height(); ++y) {
+        for (int x = 0; x < currentFrame.width(); ++x) {
+            QRgb pixelColor = currentFrame.pixel(x, y);
+            int grey = qRed(pixelColor) * 0.3 + qGreen(pixelColor) * 0.59 + qBlue(pixelColor) * 0.11;
+            currentFrame.setPixelColor(x, y, QColor(grey, grey, grey));
+        }
+    }
+}
+
+
+
+// const QString &filePath parameter
+void SpriteModel::saveProject() {
+    // Ensure the filePath has the .ssp extension
+    QString savePath = "~/testProject.ssp";
+    if (!savePath.endsWith(".ssp", Qt::CaseInsensitive))
+        savePath += ".ssp";
+
+    QJsonObject project;
+
+    // Add project-specific information to the JSON object
+    project["projectName"] = "Your Project Name";
+
+    project["frame"] = frameToJson(frames);
+
+    // Convert the JSON object to a JSON document
+    QJsonDocument jsonDoc(project);
+
+    // Save the JSON document to a file with .ssp extension
+    QFile saveFile(savePath);
+    if (saveFile.open(QFile::WriteOnly | QFile::Text)) {
+        saveFile.write(jsonDoc.toJson());
+        saveFile.close();
+    } else {
+        qDebug() << "Failed to save project.";
+    }
+}
+
+void SpriteModel::loadProject() {
+    // Load the JSON document from the file
+    QFile loadFile("~/testProject.ssp");
+    if (!loadFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Could not open the project file.";
+        return;
+    }
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(loadFile.readAll());
+    loadFile.close();
+
+    if (jsonDoc.isNull()) {
+        qDebug() << "Failed to parse the project file.";
+        return;
+    }
+
+    // Parse the JSON document and retrieve project information
+    QJsonObject project = jsonDoc.object();
+
+    // Retrieve frames data
+    QList<QImage> loadedFrames;
+    jsonToFrame(project, loadedFrames);
+
+    // Set currFrame to the first frame if there is at least one frame
+    if (!loadedFrames.isEmpty()) {
+        currFrame = loadedFrames.first();
+        loadedFrames.removeFirst();
+    }
+
+    // Update the frames QList with the loaded frames
+    frames = loadedFrames;
+
+    //emit updateFrame(); // Optional: emit a signal after loading
+}
+
+void SpriteModel::addFrame() {
+    if(frames.size() < 1) frames.append(currFrame);
+    emit updateSpritePlayer(currFrame);
+    QImage newFrame(currFrame.size(), QImage::Format_ARGB32);
+    newFrame.fill(Qt::transparent);
+    frames.append(newFrame);
+    framesIterator.toBack();
+    currFrame = newFrame;
+    emit updateFrame(currFrame);
+
 }
 
 QJsonObject SpriteModel::frameToJson(const QList<QImage> &frames) {
