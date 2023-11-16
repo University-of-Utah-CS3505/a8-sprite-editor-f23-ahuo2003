@@ -228,11 +228,11 @@ void MainWindow::saveToggled() {
 }
 
 void MainWindow::loadToggled() {
-    emit save();
+    emit load();
 }
 
 void MainWindow::SetFileTab() {
-    connect(ui->actionSave, &QAction::toggled, this,
+    connect(ui->saveButton, &QPushButton::clicked, this,
                 &MainWindow::saveToggled);
     connect(ui->actionOpen, &QAction::toggled, this,
             &MainWindow::loadToggled);

@@ -145,6 +145,19 @@
      <string>Hide Canvas Sizes Options</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="saveButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
    <zorder>frame</zorder>
    <zorder>drawingCanvas</zorder>
    <zorder>eight</zorder>
@@ -154,6 +167,7 @@
    <zorder>sixtyFour</zorder>
    <zorder>showSize</zorder>
    <zorder>hideSize</zorder>
+   <zorder>saveButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -541,6 +555,12 @@
    </widget>
   </widget>
   <action name="actionNew">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>New...</string>
    </property>
