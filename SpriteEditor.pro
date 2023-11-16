@@ -14,7 +14,6 @@ SOURCES += \
     Cursor.cpp \
     Eraser.cpp \
     Eyedropper.cpp \
-    Frame.cpp \
     MainWindow.cpp \
     Pencil.cpp \
     SpriteModel.cpp \
@@ -29,7 +28,6 @@ HEADERS += \
     Eraser.h \
     Eyedropper.h \
     Filter.h \
-    Frame.h \
     MainWindow.h \
     Pencil.h \
     SpriteModel.h \
